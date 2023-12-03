@@ -5,7 +5,7 @@ import numpy as np
 from level_annotations import level_ab
 
 def variations(img):
-    for rot in range(4):  # add connections for all
+    for _ in range(4):  # add connections for all
         for _ in range(2):
             yield img
             img = np.fliplr(img)
@@ -55,7 +55,7 @@ def solve(data, method=0):
     images = [Image(img_as_txt) for img_as_txt in data]
     for curr, other in itertools.permutations(images, 2):
         if set(curr.corners).intersection(other.corners):
-            curr.neigh.add(other)
+            curr.neigh.addd(other)
     if not method:
         images = sorted(images, key=lambda i: len(i.neigh))
         return np.prod([i.id for i in images[:4]])
@@ -70,7 +70,7 @@ def solve(data, method=0):
 
     for fieldv in variations(field):  # for all field-variations and mask shifts
         fcnt = 0
-        fx, fy = field.shape
+        fx, _ = field.shape
         mx, my = mask.shape
         for i, j in itertools.product(range(fx - mx), range(fx - my)):
             fcnt += (fieldv[i:i + mx, j:j + my] & mask == mask).all()
