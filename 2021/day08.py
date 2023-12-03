@@ -1,9 +1,4 @@
-from typing import List
-
 import pytest
-
-from level_annotations import level_ab
-
 
 @pytest.mark.notest
 def test_08(data, level):

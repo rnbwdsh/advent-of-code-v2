@@ -1,11 +1,10 @@
+from typing import List
+
 import networkx as nx
 import numpy as np
 
-from level_annotations import level_ab
-
-@level_ab(15)
-def test(lines, level):
-    data = np.array([[int(i) for i in line] for line in lines])
+def test_15(data: List[str], level):
+    data = np.array([[int(i) for i in line] for line in data])
     if level:
         dx, dy = data.shape
         data = np.tile(data, (5, 5))

@@ -2,8 +2,6 @@ from typing import List
 
 import numpy as np
 
-from level_annotations import level_ab
-
 def inner(arr, level):
     for pos in range(arr.shape[1]):
         curr = arr[:, pos].mean(axis=0) >= 0.5  # unlike np.round, round UP on 0.5

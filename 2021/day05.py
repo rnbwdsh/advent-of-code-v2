@@ -1,11 +1,9 @@
 from collections import defaultdict
 from typing import List
 
-from level_annotations import level_ab
-
-def test_05(lines: List[str], level):
+def test_05(data: List[str], level):
     field = defaultdict(int)
-    for line in lines:
+    for line in data:
         start, end = [complex(*[int(i) for i in part.split(",")]) for part in line.split(" -> ")]
         dist = end - start
         dlen = int(max(abs(dist.real), abs(dist.imag)))

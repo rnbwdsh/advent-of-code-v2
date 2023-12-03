@@ -1,10 +1,7 @@
 import numpy as np
 
-from level_annotations import level_a
-
-@level_a(25, sep="\n")
-def test(lines, level):
-    d = np.array([list(line) for line in lines])
+def test_25(data, level_a):
+    d = np.array([list(line) for line in data])
     w, h = d.shape
 
     for t in range(1, 1000):

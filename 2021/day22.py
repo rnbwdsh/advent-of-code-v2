@@ -3,8 +3,6 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from level_annotations import level_ab
-
 def overlap(a: range, b: range):
     return range(max(a.start, b.start), min(a.stop, b.stop))
 
@@ -28,10 +26,9 @@ class Cube:
     def size(self):
         return np.prod([len(d) for d in [self.x, self.y, self.z]]) - sum(sub.size() for sub in self.sub)
 
-@level_ab(22)
-def test(lines, level):
+def test_22(data, level):
     root = Cube(range(0), range(0), range(0), False)  # container for sub-cubes with add-logic
-    for line in lines:
+    for line in data:
         state = line.startswith("on")
         x0, x1, y0, y1, z0, z1 = map(int, re.findall("-?\\d+", line))
         if level or (x0 >= -50 and x1 <= 50 and y0 >= -50 and y1 <= 50 and z0 >= -50 and z1 <= 50):

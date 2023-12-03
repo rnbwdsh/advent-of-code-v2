@@ -2,8 +2,6 @@ from typing import List
 
 import numpy as np
 
-from level_annotations import level_ab
-
 def test_01(data: List[int], level):
     data = np.array(data)
     if level:

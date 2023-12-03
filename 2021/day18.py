@@ -2,30 +2,28 @@ import itertools
 import json
 import math
 from copy import deepcopy
-from operator import add
 
 from more_itertools import windowed
-
-from level_annotations import level_ab
 
 def magnitude(d):
     if isinstance(d, int):
         return d
     return magnitude(d[0]) * 3 + magnitude(d[1]) * 2
 
-def add(d, side, num, switch_side=True):
+def addd(d, side, num, switch_side=True):
     if isinstance(d[side], int):
         d[side] += num
     else:
-        add(d[side], side != switch_side, num, switch_side=False)
+        addd(d[side], side != switch_side, num, switch_side=False)
 
 def split(parent):
     for kid in parent:
-        if type(kid) == int and kid > 9:
+        if isinstance(kid, int) and kid > 9:
             parent[parent.index(kid)] = [math.floor(kid / 2), math.ceil(kid / 2)]
             return True
-        elif type(kid) == list:
-            if split(kid): return True
+        elif isinstance(kid, list) and split(kid):
+            return True
+    return None
 
 def sublists(l):
     return [sub for sub in l if isinstance(sub, list)]
@@ -38,7 +36,7 @@ def explode(d0):
                     for side in [0, 1]:
                         for parent, kid in windowed((d4, d3, d2, d1, d0), 2):
                             if kid.index(parent) == int(not side):
-                                add(kid, side, d4[side])
+                                addd(kid, side, d4[side])
                                 break
                     d3[d3.index(d4)] = 0
                     return True
@@ -52,8 +50,7 @@ def run(lines):
             continue
     return magnitude(curr)
 
-@level_ab(18)
-def test(lines, level):
+def test_18(data, level):
     for method, inp, expected in [
         [explode, [[[[[9, 8], 1], 2], 3], 4], [[[[0, 9], 2], 3], 4]],
         [explode, [7, [6, [5, [4, [3, 2]]]]], [7, [6, [5, [7, 0]]]]],
@@ -78,5 +75,5 @@ def test(lines, level):
     assert run([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]]) == 791
     assert run([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6]]) == 1137
 
-    lines = [json.loads(line) for line in lines]
-    return max(run([a, b]) for a, b in itertools.permutations(lines, 2)) if level else run(lines)
+    data = [json.loads(line) for line in data]
+    return max(run([a, b]) for a, b in itertools.permutations(data, 2)) if level else run(data)

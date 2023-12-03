@@ -1,11 +1,7 @@
-from typing import List
-
 import numpy as np
 
-from level_annotations import level_ab
-
-def test_04(data, level):
-    numbers, *fields = data
+def test_04(data: str, level):
+    numbers, *fields = data.split("\n\n")
     fields = [np.genfromtxt(field.splitlines(), dtype=int) for field in fields]
     winners = set()
     for number in map(int, numbers.split(",")):

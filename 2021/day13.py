@@ -1,11 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pytest
 
-from level_annotations import level_ab
-
-@level_ab(13, test=False, sep="\n\n")
-def test(lines, level):
-    data, fold = lines
+@pytest.mark.notest
+def test_13(data: str, level):
+    data, fold = data.split("\n\n")
     d = np.array([[int(i) for i in d.split(",")] for d in data.split("\n")])
     field = np.zeros([np.max(d) + 1] * 2, dtype=bool)
     field[tuple(d.T)] = True

@@ -2,17 +2,14 @@ import math
 
 from z3 import BitVec, BitVecVal, Optimize, If
 
-from level_annotations import level_ab
-
-@level_ab(24, sep="\n")
-def test(lines, level):
+def test_24(data, level):
     s = Optimize()
     size = int(math.log2(10 ** 14)) + 1  # 47
     digits = [BitVec(f'd_{i}', size) for i in range(14)]
     var = {r: 0 for r in 'xyzw'}
 
     pos = 0
-    for i, inst in enumerate(lines):
+    for i, inst in enumerate(data):
         instr, a_name, *b = inst.split()
         a = var[a_name]
         if b:
@@ -21,7 +18,7 @@ def test(lines, level):
 
         match instr:  # py3.10 ftw
             case 'inp':
-                c = digits[pos];
+                c = digits[pos]
                 pos += 1
             case 'add':
                 s.add(c == a + b)

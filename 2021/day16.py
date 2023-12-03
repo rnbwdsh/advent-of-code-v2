@@ -1,9 +1,8 @@
 from operator import gt, lt, eq
 
 import numpy as np
+import pytest
 from bitstring import BitStream
-
-from level_annotations import level_ab
 
 OPERATORS = {0: sum, 1: np.prod, 2: min, 3: max, 5: lambda a: gt(*a), 6: lambda a: lt(*a), 7: lambda a: eq(*a)}
 LITERAL_TYPEID = 4
@@ -39,8 +38,8 @@ def parse(packet: BitStream):
         val = int(OPERATORS[typeid](val))  # apply operator with typeid to values. int to turn bool into int
     return version, val
 
-@level_ab(16, test=False)
-def test(line, level):
+@pytest.mark.notest
+def test_16(data: str, level):
     # manual tests, as the annotation doesn't allow multiple tests per level with different values
     for h, e in zip(["D2FE28", "38006F45291200", "EE00D40C823060", "8A004A801A8002F478", "620080001611562C8802118E34",
                      "C0015000016115A2E0802F182340", "A0016C880162017C3686B18A3D4780"],
@@ -51,4 +50,4 @@ def test(line, level):
                      "9C005AC2F8F0", "9C0141080250320F1802104A08"],
                     [3, 54, 7, 9, 1, 0, 0, 1]):  # expected values
         assert parse(BitStream(hex=h))[1] == e
-    return parse(BitStream(hex=line))[level]
+    return parse(BitStream(hex=data))[level]

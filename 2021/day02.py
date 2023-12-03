@@ -1,10 +1,6 @@
-from typing import List
-
 import numpy as np
 
-from level_annotations import level_ab
-
-def test_02(data: List[str], level):
+def test_02(data, level):
     dirs = {"forward": 1j, "up": 1, "down": -1}
     pos = aim = 0
     for line in data:

@@ -3,8 +3,6 @@ import re
 import numba
 import numpy as np
 
-from level_annotations import level_ab
-
 @numba.njit()
 def simulate(x1, x2, y1, y2, limit=200):
     res = []
@@ -23,7 +21,6 @@ def simulate(x1, x2, y1, y2, limit=200):
                     break
     return res
 
-@level_ab(17)
-def test(lines, level):
-    high = list(simulate(*map(int, re.findall("-?\\d+", lines[0]))))
+def test_17(data, level):
+    high = list(simulate(*map(int, re.findall("-?\\d+", data[0]))))
     return len(high) if level else max(high)

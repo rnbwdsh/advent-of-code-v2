@@ -1,4 +1,4 @@
-from typing import Tuple, Callable, List
+from typing import Callable, List
 
 from _pytest.config import hookimpl
 from _pytest.fixtures import SubRequest, fixture
@@ -31,6 +31,8 @@ TYPE_PARSER = {
 }
 
 def run_example_test(func: Callable, puzzle: Puzzle, level: int, parser: Callable):
+    if not puzzle.examples:
+        return
     example = puzzle.examples[0]
     expected = example.answer_b if level else example.answer_a
     if expected:
@@ -73,12 +75,11 @@ def level(request: SubRequest) -> int:
         return 1
     return request.param
 
-# dummy fixtures to only run one level
 @fixture
-def level_a(level: int, request: SubRequest): pass
+def level_a(level: int, request: SubRequest): pass  # noqa, dummy fixtures to only run one level
 
 @fixture
-def level_b(level: int, request: SubRequest): pass
+def level_b(level: int, request: SubRequest): pass  # noqa, dummy fixtures to only run one level
 
 @hookimpl(hookwrapper=True)
 def pytest_pyfunc_call(pyfuncitem: Function):

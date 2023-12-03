@@ -1,15 +1,12 @@
-from level_annotations import level_ab
-
 score0 = {")": 3, "]": 57, "}": 1197, ">": 25137}
 score1 = {")": 1, "]": 2, "}": 3, ">": 4}
 close = {")": "(", "]": "[", "}": "{", ">": "<"}
 score1 = {v: score1[k] for k, v in close.items()}
 
-@level_ab(10)
-def test(lines, level):
+def test_10(data, level):
     total = 0
     scores = []
-    for line in lines:
+    for line in data:
         opened = []
         for char in line:
             if char in close:

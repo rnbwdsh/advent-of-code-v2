@@ -2,8 +2,6 @@ import itertools
 
 import numpy as np
 
-from level_annotations import level_ab
-
 ROTATORS = [(mul, channels) for channels in itertools.permutations([0, 1, 2]) for mul in
             itertools.product([1, -1], repeat=3)]
 
@@ -41,9 +39,8 @@ class Scanner:
                         # print(f"Rotation {rot_id} scanner {self.id} of {other.id}\t\tItems: {len(perm & perm_other)} / {len(self.perm[0])}\t\tPos {other.id}: {other.pos} with heuristic {len(self.heuristic & other.heuristic)}")
                         return
 
-@level_ab(19, sep="\n\n")
-def test(data, level):
-    scanners = [Scanner(chunk) for chunk in data]
+def test_19(data: str, level):
+    scanners = [Scanner(chunk) for chunk in data.split("\n\n")]
     while not all(s.aligned for s in scanners):
         for a, b in itertools.permutations(scanners, 2):
             a.align(b)

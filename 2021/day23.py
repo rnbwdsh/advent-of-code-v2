@@ -4,9 +4,8 @@ from dataclasses import dataclass
 
 import networkx as nx
 import numpy as np
+import pytest
 from frozendict import frozendict
-
-from level_annotations import level_a
 
 # performance of this is really bad :(
 ALLOWED_TARGETS = tuple([0, 1, 3, 5, 7, 9, 10])
@@ -74,23 +73,23 @@ class GameState:
     def __hash__(self):
         return hash(self.pos)
 
-@level_a(23, sep="\n")
-def test(lines, level):
+@pytest.mark.notest
+def test_23(data, level):
     global G, FINAL_TARGETS
     if level:
-        lines = list(lines)
-        lines.insert(2, "  #D#C#B#A#")
-        lines.insert(3, "  #D#B#A#C#")
+        data = list(data)
+        data.insert(2, "  #D#C#B#A#")
+        data.insert(3, "  #D#B#A#C#")
     G, FINAL_TARGETS = build_graph(level)
     calc_path.cache_clear()
 
-    lines = np.array([list("".join(line).replace("#", "").replace(" ", "")) for line in lines[2:-1]]).T.flatten()
-    pos = dict(zip(range(11, 11 + len(lines)), lines))
+    data = np.array([list("".join(line).replace("#", "").replace(" ", "")) for line in data[2:-1]]).T.flatten()
+    pos = dict(zip(range(11, 11 + len(data)), data))
     game = GameState(pos)
 
     states = [game]
     seen = set()
-    for time in range(50):
+    for _ in range(50):
         progress = max(g.score for g in states)
         if progress == len(pos):
             # print(min(g.cost for g in states if g.score == len(pos)))
