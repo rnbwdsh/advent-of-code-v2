@@ -1,7 +1,4 @@
-from level_annotations import level_ab
-
-@level_ab(2)
-def solve(data, level):
+def test_02(data, level):
     cnt = 0
     for line in data:
         nr, letter, pw = line.split(" ")

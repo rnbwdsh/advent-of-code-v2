@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import copy
 import re
 
@@ -122,9 +116,6 @@ class Group:
 
 immu, infec = a.strip().replace("Immune System:\n", "").replace("\n ", " ").split("\n\nInfection:\n")
 
-# In[2]:
-
-
 immuT = Team(immu, "Immune system")
 infecT = Team(infec, "Infection")
 last_units = 0
@@ -158,15 +149,9 @@ while immuT.get_units() > 0 and infecT.get_units() > 0:
         break
     last_units = units
 
-# In[3]:
-
-
 # results of the run without boosting:
 print(infecT.final())
 print(immuT.final())
-
-# In[4]:
-
 
 # hack to overwrite print function
 real_print = print

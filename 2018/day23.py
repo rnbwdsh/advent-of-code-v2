@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
 # Imports and utility functions
 import re
 from itertools import product
@@ -27,9 +21,6 @@ a = open("day23.txt").read()
 b = a.split("\n")
 c = [re.findall(r"(-?\d+)", bb) for bb in b]
 nanobots = [{"id": id, "pos": (int(a), int(b), int(c)), "range": int(d)} for id, (a, b, c, d) in enumerate(c)]
-
-# In[4]:
-
 
 # Part 1: Find how many drones are in range of master (drone with max range)
 master = max(nanobots, key=lambda bot: bot["range"])

@@ -1,9 +1,9 @@
 import networkx as nx
 
-def all_paths(g, curr, visited, all_visited, can_twice=True):
+def all_paths(g, curr, visited, all_visited, can_twice=1):
     visited += tuple([curr])
     if curr == "end":
-        all_visited.addd(visited)
+        all_visited.add(visited)
         return
     for n in nx.neighbors(g, curr):
         if n.isupper() or n not in visited:

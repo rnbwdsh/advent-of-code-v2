@@ -30,7 +30,7 @@ def run_simulation(line, level):
 
     # batch-process everything in a timestep at once
     states = np.array([[0, 0, 0, 0, 1, 0, 0, 0]])
-    for time in range(32 if level else 24):
+    for _ in range(32 if level else 24):
         geode_count = states[:, 3].max()
         states = np.concatenate([forward(states, blueprint_line) for blueprint_line in blueprint])
         states = states[np.unique(states @ MUL, return_index=True)[

@@ -102,7 +102,7 @@ def test_22(data, level):
         y = x = 0
     else:
         world = np.pad(world, 1, constant_values=" ")
-        y, x = list(zip(*np.where("." == world)))[0]  # noqa  # numpy typing error
+        y, x = list(zip(*np.nonzero("." == world)))[0]  # noqa  # numpy typing error
 
     for token in re.findall(r"(\d+|[RL])", data[-1]):
         if not token.isnumeric():  # Rotation direction

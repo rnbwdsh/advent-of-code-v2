@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[29]:
-
-
 a = """...## => #
 ..#.. => #
 .#... => #
@@ -88,9 +82,6 @@ for i in range(len(state)):
         potScore += i - prefix
 print("Pot score", potScore)
 
-# In[133]:
-
-
 from IPython.core.display import display, HTML
 
 display(HTML("<style>.container { width:100% !important; }</style>"))
@@ -171,9 +162,6 @@ for i in range(1010):
     print("iteration", i, "score", score(state), "diff", score(state) - score(nstate))
     state = nstate
 potScore = 0
-
-# In[135]:
-
 
 547 + 23 * 50000000000
 

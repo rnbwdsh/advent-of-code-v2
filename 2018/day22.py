@@ -1,17 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[88]:
-
-
 import networkx as nx
 import numpy as np
 
 ROCK, WET, NARROW = 0, 1, 2
 NEITHER, TORCH, CLIMB = 0, 1, 2
-
-# In[90]:
-
 
 depth = 3558
 target = (15, 740)
@@ -50,9 +41,6 @@ field[0, 0] = 0
 field[target] = 0
 
 np.sum(field[:target[0] + 1, :target[1] + 1])
-
-# In[97]:
-
 
 g = nx.Graph()
 

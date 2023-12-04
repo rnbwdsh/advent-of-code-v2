@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import re
 from collections import defaultdict
 
@@ -142,9 +136,6 @@ while len(letters) > 0:
             print(x, end="")
             break
 print()
-
-# In[2]:
-
 
 graph = defaultdict(list)
 free_time = defaultdict(list)

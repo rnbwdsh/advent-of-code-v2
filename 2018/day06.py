@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import itertools
 import re
 from collections import defaultdict, Counter
@@ -98,9 +92,6 @@ for i in range(o):
 
 print(grid)
 max(found.values())
-
-# In[2]:
-
 
 grid = np.zeros((o, o), dtype=int)
 

@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import copy
 from collections import defaultdict
 from typing import *
@@ -38,7 +32,9 @@ def printfield(field):
     print()
 
 # recursively backtrace
-def backtrace(pos, prev, path=[]):
+def backtrace(pos, prev, path=None):
+    if path is None:
+        path = []
     if pos in prev:
         return backtrace(prev[pos], prev, [prev[pos]] + path)
     else:
@@ -118,7 +114,7 @@ class Fighter:
 
         backtraces = []
         for fn in self.freeNeighbourFields(field):
-            bt =
+            pass  # TODO?
 
         if backtrace != None:
             self.pos = backtrace[1]
@@ -163,7 +159,7 @@ printfield(field)
 fighters = []
 for pos in np.argwhere(np.logical_or(field == "E", field == "G")):
     pos = tuple(pos)
-    fighters.append(Fighter(pos, field[pos]))
+    fighters.append(Fighter(pos, field[pos]))  # noqa numpy type
     field[pos] = "."  # clean field
 print("Fighters:")
 print(sorted(fighters))

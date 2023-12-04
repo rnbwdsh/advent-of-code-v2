@@ -1,6 +1,5 @@
 import re
-
-from level_annotations import level_ab
+from typing import List
 
 def match(key: str, val: str):
     match key:
@@ -11,8 +10,8 @@ def match(key: str, val: str):
         case "eyr":
             return 2020 <= int(val) <= 2030
         case "hgt":
-            return (val[-2:] == "cm" and 150 <= int(val[:-2]) <= 193) or (
-                        val[-2:] == "in" and 59 <= int(val[:-2]) <= 76)
+            return (val.endswith("cm") and 150 <= int(val[:-2]) <= 193) or (
+                        val.endswith("in") and 59 <= int(val[:-2]) <= 76)
         case "hcl":
             return len(val) == 7 and val[0] == "#" and set(val[1:]).issubset(set("0123456789abcdef"))
         case "ecl":
@@ -24,8 +23,7 @@ def match(key: str, val: str):
         case _:
             return False
 
-@level_ab(4, sep="\n\n")
-def solve(data, level):
+def test_04(data: List[str], level):
     ctr = 0
     allowed = {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
     for line in data:

@@ -1,17 +1,15 @@
 import re
+from typing import List
 
 import networkx as nx
 
-from level_annotations import level_ab
-
-@level_ab(7)
-def solve(data, level):
-    def dfs(G, start, factor):
-        return sum([dfs(G, follower, factor * val["cnt"]) + factor * val["cnt"]
-                    for follower, val in G[start].items()])
+def test_07(data: List[str], level):
+    def dfs(g, start, factor):
+        return sum([dfs(g, follower, factor * val["cnt"]) + factor * val["cnt"]
+                    for follower, val in g[start].items()])
 
     G = nx.DiGraph()
-    for line in data.split("\n"):
+    for line in data:
         line = re.sub("(bags?)", "", line)
         containing, contained = line[:-2].split("  contain ")
         if "no other" not in contained:

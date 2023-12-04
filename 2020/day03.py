@@ -1,11 +1,10 @@
+from typing import List
+
 import numpy as np
 
-from level_annotations import level_ab
-
-@level_ab(3)
-def solve(data, method=0):
-    def sol(data, x_mov, y_mov):
-        d = np.array(list(map(list, data.split("\n")))).__eq__('#')
+def test_03(data: List[str], level):
+    def sol(lines, x_mov, y_mov):
+        d = np.array([list(d) for d in lines]).__eq__('#')
         x = y = cnt = 0
         while True:
             x += x_mov
@@ -14,7 +13,7 @@ def solve(data, method=0):
                 return cnt
             cnt += d[x, y % d.shape[1]]
 
-    if method:
+    if level:
         return np.prod([sol(data, xm, ym) for xm, ym in [(1, 1), (1, 3), (1, 5), (1, 7), (2, 1)]])
     else:
         return sol(data, 1, 3)

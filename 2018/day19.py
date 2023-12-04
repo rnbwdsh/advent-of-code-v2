@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[14]:
-
-
 reg = [0, 0, 0, 0, 0, 0]
 a = """seti 5 0 1
 seti 6 0 2
@@ -87,9 +81,6 @@ while reg[0] < len(prog):
 
 reg[IPADDR] -= 1
 print("regs:", reg)
-
-# In[16]:
-
 
 # loop counter is 10551311
 # so we hook it to set it to smth different

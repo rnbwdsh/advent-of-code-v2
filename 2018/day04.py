@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[83]:
-
-
 import re
 from collections import defaultdict, Counter
 
@@ -1107,7 +1101,7 @@ for line in b:
         # print(activeguard)
     elif "asleep" in event:
         startsleep = time
-    elif "wakes":
+    elif "wakes" in event:
         diff = (time - startsleep).total_seconds() / 60
         sleeptimes[activeguard] += diff
         for i in range(int(diff)):
@@ -1123,9 +1117,6 @@ minute = Counter(sleepminutes[max_id]).most_common()[0][0]
 # print(sleepminutes)
 print(minute)
 print(minute * max_id)
-
-# In[80]:
-
 
 # part 2
 max_times = 0

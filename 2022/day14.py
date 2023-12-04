@@ -27,5 +27,5 @@ def test_14(data, level):
     if level:
         field[:, highest_y + 2] = "#"  # draw "floor"
     while drop_sand(field, 500, 0) and field[500, 0] == ".":
-        pass
+        pass  # skip
     return (field == "o").sum()

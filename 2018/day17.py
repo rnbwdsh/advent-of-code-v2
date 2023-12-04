@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[95]:
-
-
 import re
 from collections import defaultdict
 
@@ -1801,9 +1795,6 @@ x=465, y=1022..1033
 x=476, y=1634..1638
 x=539, y=1630..1641
 y=286, x=417..432"""
-
-# In[106]:
-
 
 clay = defaultdict(bool)
 settled, flowing = set(), set()

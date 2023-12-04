@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[35]:
-
-
 import numpy as np
 from scipy.cluster.hierarchy import fclusterdata
 from scipy.spatial.distance import cityblock as manhattan

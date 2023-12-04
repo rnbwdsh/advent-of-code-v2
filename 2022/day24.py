@@ -11,7 +11,7 @@ def test_24(data, level):
     f = np.array([list(li) for li in data])[1:-1, 1:-1]
     w, h = f.shape
 
-    blizzards = [(x, y, *SIGN_MOVE[f[x, y]]) for x, y in zip(*np.where(f != "."))]
+    blizzards = [(x, y, *SIGN_MOVE[f[x, y]]) for x, y in zip(*np.nonzero(f != "."))]
 
     g = nx.DiGraph()
     g.add_nodes_from(itertools.product(range(MAX_TIME), range(w), range(h)))

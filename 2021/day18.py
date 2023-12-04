@@ -10,11 +10,11 @@ def magnitude(d):
         return d
     return magnitude(d[0]) * 3 + magnitude(d[1]) * 2
 
-def addd(d, side, num, switch_side=True):
+def add(d, side, num, switch_side=True):
     if isinstance(d[side], int):
         d[side] += num
     else:
-        addd(d[side], side != switch_side, num, switch_side=False)
+        add(d[side], side != switch_side, num, switch_side=False)
 
 def split(parent):
     for kid in parent:
@@ -36,7 +36,7 @@ def explode(d0):
                     for side in [0, 1]:
                         for parent, kid in windowed((d4, d3, d2, d1, d0), 2):
                             if kid.index(parent) == int(not side):
-                                addd(kid, side, d4[side])
+                                add(kid, side, d4[side])
                                 break
                     d3[d3.index(d4)] = 0
                     return True

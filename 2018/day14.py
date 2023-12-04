@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[44]:
-
-
 def solve(until, full=False):
     r = [3, 7]
     p1 = 0
@@ -26,9 +20,6 @@ print(solve(5))
 print(solve(18))
 print(solve(2018))
 print(solve(327901))
-
-# In[51]:
-
 
 def solve2(subsequence, toSearch=10000):
     seq = solve(toSearch, True)

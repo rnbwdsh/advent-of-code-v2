@@ -9,7 +9,7 @@ def coord_in_arr(coord: Tuple[int, int], arr: np.ndarray) -> bool:
     return all(0 <= pos < dim_len for pos, dim_len in zip(coord, arr.shape))
 
 def pos_of_value(arr: np.ndarray, value: Any):
-    return next(zip(*np.where(arr == value)))
+    return next(zip(*np.nonzero(arr == value)))
 
 def test_12(data, level):
     f = np.array([[ord(c) for c in line] for line in data])
@@ -24,7 +24,7 @@ def test_12(data, level):
             if coord_in_arr(e, f) and curr <= f[e] + 1:
                 g.add_edge(e, pos)
     if level:
-        apos = zip(*np.where(f == ord('a')))
+        apos = zip(*np.nonzero(f == ord('a')))
         return min(nx.shortest_path_length(g, start, end) for start in apos if nx.has_path(g, start, end))
     else:
         return nx.shortest_path_length(g, start, end)

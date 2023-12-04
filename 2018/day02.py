@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[85]:
-
-
 from collections import Counter
 
 a = """wkzhyfdpluzeqvajtbbosngkxc
@@ -277,9 +271,6 @@ mult = 1
 for m in filter(lambda x: x > 0, d):
     mult *= m
 print("Mult result:", mult)
-
-# In[92]:
-
 
 # ex2
 def cmp(l1, l2):

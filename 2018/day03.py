@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[67]:
-
-
 import re
 
 import numpy as np
@@ -1311,9 +1305,6 @@ c = np.array(
 for _, x, y, w, h in c:
     cloth[x:(x + w), y:(y + h)] += 1
 print("Twice used fields:", np.sum(cloth > 1))
-
-# In[59]:
-
 
 # ex2
 print(c)

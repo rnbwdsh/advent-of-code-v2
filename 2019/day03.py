@@ -6,7 +6,8 @@ print(data)
 
 lookup = {"R": 1, "L": -1, "U": 1j, "D": -1j}
 
-def trace(data, pos=0):
+def trace(data):
+    pos = 0
     return {(pos := pos + lookup[d]): time + 1 for time, d in enumerate(data)}
 
 line1, line2 = trace(data[0]), trace(data[1])

@@ -1,5 +1,3 @@
-from level_annotations import level_ab
-
 def play_rec(p1, p2, rec_lvl=1):
     history = set()
     while p1 and p2:
@@ -19,10 +17,9 @@ def play_rec(p1, p2, rec_lvl=1):
             p2 += [c2, c1]
     return p1, p2
 
-@level_ab(22, sep="\n\n")
-def solve(data, method=0):
+def test_22(data: str, level):
     p1, p2 = [list(map(int, d.split("\n")[1:]))
-              for d in data]
-    p1, p2 = play_rec(p1, p2, method)  # method = 0 means never recurse
+              for d in data.split("\n\n")]
+    p1, p2 = play_rec(p1, p2, level)  # method = 0 means never recurse
     p = reversed(p1 + p2)
     return sum([card * (i + 1) for i, card in enumerate(p)])

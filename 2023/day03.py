@@ -1,9 +1,7 @@
 import re
-from typing import List
 
 import numpy as np
-
-from level_annotations import level_ab
+import pytest
 
 def replace_connected(field, masked):
     replaced = np.zeros(field.shape, dtype=int)
@@ -44,7 +42,7 @@ def gen_mul_adjacent(field, replaced):
         if len(surrounding) == 2:
             yield np.prod(list(surrounding))
 
-@level_ab(3, test=("""467..114..
+@pytest.mark.data("""467..114..
 ...*......
 ..35..633.
 ......#...
@@ -53,18 +51,17 @@ def gen_mul_adjacent(field, replaced):
 ..592.....
 ......755.
 ...$.*....
-.664.598..""", 4361, 467835))
-def solve(lines: List[str], level):
-    field = np.array([[c for c in line] for line in lines if line.strip()], dtype=str)
-    symbols = set("*") if level else set("".join(lines)) - set(".0123456789")
+.664.598..""", 4361, 467835)
+def test_03(data: np.ndarray, level):
+    symbols = set("*") if level else set("".join(data.flatten())) - set(".0123456789")
 
     # mask in all symbols and their neighbors, as well as numbers next to those
-    mask = mask_in_around_symbols(field, symbols)
-    masked = np.full(field.shape, ".", dtype=str)
-    masked[mask] = field[mask]
+    mask = mask_in_around_symbols(data, symbols)
+    masked = np.full(data.shape, ".", dtype=str)
+    masked[mask] = data[mask]
 
     if level:
-        return sum(gen_mul_adjacent(field, replace_connected(field, masked)))
+        return sum(gen_mul_adjacent(data, replace_connected(data, masked)))
     else:
         joined = ".".join(["".join(row) for row in masked])
         return sum([int(n) for n in re.findall(r"\d+", joined)])

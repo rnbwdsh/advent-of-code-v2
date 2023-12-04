@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[4]:
-
-
 # Advent of Code 2018, Day 13
 # (c) blu3r4y
 

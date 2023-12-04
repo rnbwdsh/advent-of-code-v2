@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[58]:
-
-
 import copy
 
 def intmap(a, split=","):
@@ -110,9 +104,6 @@ class Instruction:
             funcs.remove(n)
         return funcs
 
-# In[51]:
-
-
 ind = open("day16.1.txt").read()
 
 counter = 0
@@ -133,9 +124,6 @@ for a in ind.split("\n\n"):
         counter += 1
 print(counter, "/", total_len)
 
-# In[55]:
-
-
 found = {}
 for j in range(10):
     for a in ind.split("\n\n"):
@@ -153,9 +141,6 @@ for j in range(10):
             if len(correct) == 1:
                 found[instructions[0]] = correct[0]
 print(len(found), found)
-
-# In[59]:
-
 
 ind2 = open("day16.2.txt").read()
 mem = [0, 0, 0, 0]

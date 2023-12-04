@@ -1,18 +1,17 @@
 from typing import List
 
 import numpy as np
+import pytest
 
-from level_annotations import level_ab
-
-@level_ab(2, test=("""Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+@pytest.mark.data("""Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
 Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
 Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
-Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green""", 8, 2286))
-def solve(lines: List[str], level):
+Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green""", 8, 2286)
+def test_2(data: List[str], level):
     total_game = 0
     max_per_col = {"red": 12, "green": 13, "blue": 14}
-    for line in lines:
+    for line in data:
         game, rest = line.split(":")
         per_col = {"red": 0, "green": 0, "blue": 0}
         game = int(game.replace("Game ", ""))

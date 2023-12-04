@@ -1,4 +1,4 @@
-from typing import Callable, List
+from typing import Callable, List, Tuple, Any
 
 from _pytest.config import hookimpl
 from _pytest.fixtures import SubRequest, fixture
@@ -6,57 +6,42 @@ from _pytest.mark import Mark
 from _pytest.python import Function
 from aocd.models import Puzzle
 
-def parse_chunks_int(data: str) -> List[List[int]]:
-    return [parse_line_int(line) for line in data.split("\n\n")]
+from parsers import TYPE_PARSER
 
-def parse_line_int(data: str) -> List[int]:
-    split_chars = set(data) - set("-0123456789")
-    split_char = list(split_chars)[0] if split_chars else "\n"
-    return [int(i) for i in data.split(split_char)]
+class Example:
+    def __init__(self, input_data, answer_a, answer_b):
+        self.input_data = input_data
+        self.answer_a = answer_a
+        self.answer_b = answer_b
 
-def parse_line(data: str) -> List[str]:
-    return data.split("\n\n" if "\n\n" in data else "\n")
+def make_str(v: Any):
+    return str(v) if not isinstance(v, str) else v
 
-def parse_chunks(data: str) -> List[List[str]]:
-    return [parse_line(line) for line in data.split("\n\n")]
-
-TYPE_PARSER = {
-    List[List[int]]: parse_chunks_int,
-    List[List[str]]: parse_chunks,
-    List[int]: parse_line_int,
-    List[str]: parse_line,
-    str: lambda d: d,
-    None: lambda d: d.split("\n"),
-    int: int,
-}
-
-def run_example_test(func: Callable, puzzle: Puzzle, level: int, parser: Callable):
-    if not puzzle.examples:
-        return
-    example = puzzle.examples[0]
-    expected = example.answer_b if level else example.answer_a
-    if expected:
-        inp = parser(example.input_data)
-        answer = func(inp, level)
-        if not isinstance(answer, str):
-            answer = str(answer)
-        assert answer == expected, f"Failed test:\n{answer=}\n{expected=}"
+def run_example(func: Callable, input_data: str, expected: Example, level: int, parser: Callable):
+    inp = parser(input_data)
+    answer = func(inp, level)
+    assert make_str(answer) == make_str(expected), f"Failed test:\n{answer=}\n{expected=}"
 
 def run_real(func, puzzle, level, parser):
     inp = parser(puzzle.input_data)
     answer = func(inp, level)
-    if level:
-        puzzle.answer_b = answer
-        assert puzzle.answered_b, f"Wrong answer\n{answer=}"
-    else:
-        puzzle.answer_a = answer
-        assert puzzle.answered_a, f"Wrong answer\n{answer=}"
+    setattr(puzzle, f"answer{'_b' if level else '_a'}", answer)
+    assert puzzle.answered_b if level else puzzle.answered_a, f"Wrong answer\n{answer=}"
 
 def wrap_func(func, markers: List[Mark], puzzle: Puzzle, level: int, **_):
-    def wrapper(*_, **__):
+    def wrapper(*_, **__):  # *_ / **_ is to ignore arguments
         parser = TYPE_PARSER[func.__annotations__.get("data", None)]
+        examples = puzzle.examples
+        for m in markers:
+            if m.name == "data":
+                data, part_a, part_b = m.args
+                examples = [Example(data[0], part_a, None), Example(data[1], None, part_b)] \
+                    if isinstance(data, Tuple) else [Example(data, part_a, part_b)]
+
         if [m.name for m in markers].count("notest") == 0:
-            run_example_test(func, puzzle, level, parser)
+            for example in examples:
+                if expected := example.answer_b if level else example.answer_a:
+                    run_example(func, example.input_data, expected, level, parser)
         run_real(func, puzzle, level, parser)
 
     return wrapper

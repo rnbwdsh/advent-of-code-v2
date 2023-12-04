@@ -1,0 +1,26 @@
+[project]
+name = "AdventOfCode v2"
+description = "With pytest magic"
+version = "2.0"
+authors = [
+    { name = "MV", email = "nope@nope.at" }
+]
+dependencies = [
+    "numpy",
+    "z3-solver",
+    "pytest",
+    "networkx",
+    "matplotlib",
+    "lark"
+    "pytest-xdist",
+    "numba"
+]
+
+[project.optional-dependencies]
+dev = []
+
+[build-system]
+
+[tool.pytest.ini_options]
+python_files = "day*.py"
+addopts = "-n 32 --ignore=2015 --ignore=2016 --ignore=2017 --ignore=2018 --ignore=2019"

@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[62]:
-
-
 import exrex
 
 path = {}
@@ -16,9 +10,6 @@ a = "^WSSSSWSWNWSWNNNWNENNNEENENWNENWWSWWSEESWWSSWS(SWSSE(N|ESSWNWWWWSESENESESES
 a = a.replace("|)", ")")  # ignore empty branches
 
 print("count", exrex.count(a))
-
-# In[63]:
-
 
 lastmax = 0
 # solves lvl 1
@@ -35,9 +26,6 @@ for p in exrex.generate(a):
         print(currmax)
         # print(p)
         lastmax = currmax
-
-# In[64]:
-
 
 import networkx
 

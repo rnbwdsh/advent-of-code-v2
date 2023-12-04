@@ -1,11 +1,9 @@
 import itertools
+from typing import List
 
 import numpy as np
 
-from level_annotations import level_ab
-
-@level_ab(1, apply=int, sep="\n")
-def solve(data, level):
+def test_01(data: List[int], level):
     data = sorted(data)
     for line in itertools.product(data, repeat=level + 2):
         if np.sum(line) == 2020:
