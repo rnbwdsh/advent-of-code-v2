@@ -7,7 +7,7 @@ import pytest
 
 @pytest.mark.data("""Time:      7  15   30
 Distance:  9  40  200""", 288, 71503)
-def test_06(data: List[str], level):
+def test_07(data: List[str], level):
     time, dist = data
     if level:
         time = time.replace(" ", "")
