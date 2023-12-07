@@ -1,4 +1,4 @@
-# In[11]:
+
 
 
 import aocd
@@ -70,7 +70,7 @@ class Process():  # wrapper for generator
 # tests in other files
 
 
-# In[36]:
+
 
 
 movement = {1: 1, 2: -1, 3: 1j, 4: -1j}

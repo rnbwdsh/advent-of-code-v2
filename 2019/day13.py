@@ -86,7 +86,7 @@ prog_out = np.array(p.process([]))
 block_cnt = sum(prog_out[range(2, len(prog_out), 3)] == BLOCK)
 aocd.submit(answer=block_cnt)
 
-# In[ ]:
+
 
 
 controls = {"a": 1, "s": 0, "d": -1}
@@ -128,7 +128,7 @@ def play_game(data, interactive=False):
 
 aocd.submit(answer=play_game(data))
 
-# In[ ]:
+
 
 
 play_game(data, interactive=True)

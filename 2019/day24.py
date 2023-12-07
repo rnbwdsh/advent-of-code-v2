@@ -1,4 +1,4 @@
-# In[95]:
+
 
 
 import aocd
@@ -35,7 +35,7 @@ assert solve("""....#
 
 aocd.submit(solve(aocd.get_data(day=24)), day=24)
 
-# In[110]:
+
 
 
 from copy import copy

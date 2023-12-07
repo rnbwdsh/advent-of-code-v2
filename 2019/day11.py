@@ -139,7 +139,7 @@ def paint_ship(data, start_col=BLACK):
 
 aocd.submit(day=11, answer=len(paint_ship(data)))  # get number of cells
 
-# In[12]:
+
 
 
 def show(ship):

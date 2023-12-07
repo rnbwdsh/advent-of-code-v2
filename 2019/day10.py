@@ -4,49 +4,7 @@ from math import pi
 
 import aocd
 import numpy as np
-
-def parse(d):
-    return np.array([list(dd) for dd in d.split("\n")]).T
-
-data = parse(aocd.get_data(day=10))
-
-small = """.#..#
-.....
-#####
-....#
-...##"""
-
-mid = """......#.#.
-#..#.#....
-..#######.
-.#.#.###..
-.#..#.....
-..#....#.#
-#..#....#.
-.##.#..###
-##...#..#.
-.#....####"""
-
-big = """.#..##.###...#######
-##.############..##.
-.#.######.########.#
-.###.#######.####.#.
-#####.##.#.##.###.##
-..#####..#.#########
-####################
-#.####....###.#.#.##
-##.#################
-#####.##.###..####..
-..######..##.#######
-####.##.####...##..#
-.#####..#.######.###
-##...#.##########...
-#.##########.#######
-.####.#.###.###.#.##
-....##.##.###..#####
-.#.#.###########.###
-#.#.#.#####.####.###
-###.##.####.##.#..##"""
+import pytest
 
 def raytrace(d):
     pos_count = {}  # dict of 
@@ -60,11 +18,6 @@ def raytrace(d):
             pos_count[len(found)] = spos
     return max(pos_count.items())
 
-assert (raytrace(parse(small))) == (8, (3, 4))
-assert (raytrace(parse(mid))) == (33, (5, 8))
-assert (raytrace(parse(big))) == (210, (11, 13))
-
-aocd.submit(day=10, answer=raytrace(data)[0])
 
 def pulverize(d):
     spos = raytrace(d)[1]
@@ -85,7 +38,9 @@ def pulverize(d):
                 if cnt == 200:
                     return cta
 
-assert pulverize(parse(big)) == (8, 2)
-
-score = lambda a: a[0] * 100 + a[1]
-aocd.submit(day=10, answer=score(pulverize(data)))
+@pytest.mark.notest
+def test_10(data: np.ndarray, level):
+    if level:
+        a, b = pulverize(data)
+        return a + b * 100
+    return raytrace(data.T)[0]

@@ -12,4 +12,4 @@ dev = []
 
 [tool.pytest.ini_options]
 python_files = "day*.py"
-addopts = "--ignore=2015 --ignore=2016 --ignore=2017 --ignore=2018 --ignore=2019"  # -n 32
+addopts = "--ignore=2015 --ignore=2016 --ignore=2017 --ignore=2018"  # -n 32
