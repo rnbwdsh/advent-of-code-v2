@@ -20,7 +20,8 @@ CCC = (ZZZ, GGG)
 DDD = (DDD, DDD)
 EEE = (EEE, EEE)
 GGG = (GGG, GGG)
-ZZZ = (ZZZ, ZZZ)""", """LR
+ZZZ = (ZZZ, ZZZ)""",
+                   """LR
 
 11A = (11B, XXX)
 11B = (XXX, 11Z)

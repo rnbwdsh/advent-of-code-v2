@@ -37,7 +37,6 @@ humidity-to-location map:
 60 56 37
 56 93 4""", 35, 46)
 def test_05(data: List[List[str]], level):
-    total = 0
     seeds = [int(i) for i in data[0][0].split(": ")[1].split(" ")]
     if level:
         seeds = [range(a, a+b) for a, b in zip(seeds[::2], seeds[1::2])]
