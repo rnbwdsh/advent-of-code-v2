@@ -2,7 +2,6 @@ import cmath
 from collections import defaultdict
 from math import pi
 
-import aocd
 import numpy as np
 import pytest
 
@@ -18,15 +17,14 @@ def raytrace(d):
             pos_count[len(found)] = spos
     return max(pos_count.items())
 
-
 def pulverize(d):
     spos = raytrace(d)[1]
     targets = defaultdict(dict)  # dict of dicts
-    for tpos, tval in np.ndenumerate(d):  # collect all targets
-        if tval == "#" and spos != tpos:
-            diff = complex(*spos) - complex(*tpos)
+    for pos, val in np.ndenumerate(d):  # collect all targets
+        if val == "#" and spos != pos:
+            diff = complex(*spos) - complex(*pos)
             angle = (cmath.phase(diff) - pi / 2) % (2 * pi)  # rotate by -90
-            targets[angle][abs(diff)] = tpos
+            targets[angle][abs(diff)] = pos
 
     cnt = 0
     while targets:

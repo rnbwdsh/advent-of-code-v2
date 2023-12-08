@@ -3,7 +3,23 @@ name = "AdventOfCode v2"
 description = "With pytest magic"
 version = "2.0"
 authors = [{ name = "MV", email = "nope@nope.at" }]
-dependencies = ["numpy", "z3-solver", "pytest", "networkx", "matplotlib", "lark", "pytest-xdist", "numba", ]
+dependencies = ['advent-of-code-data',
+    'bitstring',
+    'frozendict',
+    'lark',
+    'matplotlib',
+    'more-itertools',
+    'networkx',
+    'numba',
+    'numpy',
+    'pandas',
+    'pillow',
+    'pytest',
+    'pytest-xdist',
+    'regex',
+    'scipy',
+    'sympy',
+]
 
 [project.optional-dependencies]
 dev = []
@@ -12,4 +28,4 @@ dev = []
 
 [tool.pytest.ini_options]
 python_files = "day*.py"
-addopts = "--ignore=2015 --ignore=2016 --ignore=2017 --ignore=2018"  # -n 32
+addopts = "-v --ignore=2015 --ignore=2016 --ignore=2017 --ignore=2018"  # -n 32

@@ -1,27 +1,24 @@
-from itertools import permutations
 from typing import List
-
-import aocd
 
 IN_SIZE = {1: 4, 2: 4, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 2, 99: 1}
 IN_NAME = {1: "add", 2: "mul", 3: "rd", 4: "prnt", 5: "jnz", 6: "jz",
            7: "lt", 8: "eq", 9: "bas", 99: "ret"}
 EXT_MEM = 1000
 
-class Process():  # wrapper for generator
-    def __init__(self, data, inp=()):
+class Process:  # wrapper for generator
+    def __init__(self, data, inp):
         self.d = data[:] + [0] * EXT_MEM  # copy + extend memory
         self.done = False
         self.pg = self.process_gen()
         self.inp = inp
         self.base = 0
 
-    def process(self, inp=()):
+    def compute(self, inp=()):
         self.inp = inp
         return next(self.pg)
 
     def proc_data(self, inp):
-        self.process(inp)
+        self.compute(inp)
         return self.d[:-EXT_MEM]
 
     def parse_ins(self, ptr):
@@ -63,12 +60,12 @@ class Process():  # wrapper for generator
             elif ins == 9:
                 self.base += d[p1]  # base
             elif ins == 99:
-                self.done = True; yield out  # ret
+                self.done = True
+                yield out  # ret
             else:
                 raise ValueError(f"Unknown instruction {ins} at {ptr}")
             ptr += IN_SIZE[ins]  # jmp is compensated with -3    # move ptr
 
-
 def test_09(data: List[int], level):
-    res = Process(data).process([1 + level])
+    res = Process(data, []).compute([1 + level])
     return res[0] if level else ",".join(map(str, res))

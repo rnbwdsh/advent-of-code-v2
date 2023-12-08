@@ -10,5 +10,5 @@ def test_08(data: str, level):
     if level:
         plt.imshow(functools.reduce(lambda a, b: np.where(a != 2, a, b), data))
         return "ZLBJF"
-    layer = min(data, key=lambda layer: (layer == 0).sum())
+    layer = min(data, key=lambda l: (l == 0).sum())
     return (layer == 1).sum() * (layer == 2).sum()

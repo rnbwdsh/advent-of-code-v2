@@ -1,5 +1,3 @@
-
-
 def test_05(data: str, level):
     d = [int(d) for d in data.replace("\n", "").split(",")]  # don't modify original, return modified copy
     ptr, out, debug = 0, [], False
@@ -10,6 +8,7 @@ def test_05(data: str, level):
         ins_size = {1: 4, 2: 4, 3: 2, 4: 2, 5: 0, 6: 0, 7: 4, 8: 4, 99: 0}
         size = ins_size[ins]
         p1 = ptr + 1 if p1m else d[ptr + 1]
+        p2 = p3 = 0  # default
         if size > 1:
             p2 = ptr + 2 if p2m else d[ptr + 2]
         if size > 2:

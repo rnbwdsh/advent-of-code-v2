@@ -2,11 +2,12 @@ import re
 from collections import Counter
 from math import floor
 
-import aocd
+import pytest
 from scipy import optimize
 
 class Inventory(Counter):
     def __init__(self, data, fuel):
+        super().__init__()
         self["FUEL"] = -fuel
         # create lookup table for chemical -> (needed, {traded, given})
         lines = [list(reversed(re.split(",? =?>? ?", line))) for line in data.split("\n")]
@@ -22,17 +23,15 @@ class Inventory(Counter):
                 return -self["ORE"]
             self.replace(name, stored // self.lookup[name][0])
 
-    def replace(self, addtyp, amount):
-        if addtyp != "ORE":
-            addnum, typ_cnt = self.lookup[addtyp]
-            self.update({addtyp: -addnum * amount})
+    def replace(self, add_typ, amount):
+        if add_typ != "ORE":
+            add_num, typ_cnt = self.lookup[add_typ]
+            self.update({add_typ: -add_num * amount})
             self.update(Counter({k: v * amount for k, v in typ_cnt.items()}))
 
-assert Inventory(
-    """9 ORE => 2 A\n8 ORE => 3 B\n7 ORE => 5 C\n3 A, 4 B => 1 AB\n5 B, 7 C => 1 BC\n4 C, 1 A => 1 CA\n2 AB, 3 BC, 4 CA => 1 FUEL""",
-    1).loop() == 165
-
-aocd.submit(day=14, answer=Inventory(aocd.get_data(), 1).loop())
-
-metric = lambda i: abs(Inventory(aocd.get_data(), i).loop() - 1000000000000)
-aocd.submit(floor(optimize.minimize_scalar(metric).x), day=14)
+@pytest.mark.notest
+def test_14(data: str, level):
+    if level:
+        metric = lambda i: abs(Inventory(data, i).loop() - 1000000000000)
+        return floor(optimize.minimize_scalar(metric).x)
+    return Inventory(data, 1).loop()

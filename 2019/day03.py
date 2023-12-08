@@ -1,4 +1,4 @@
-from typing import List, Dict, Union
+from typing import List, Dict
 
 lookup = {"R": 1, "L": -1, "U": 1j, "D": -1j}
 
