@@ -1,16 +1,12 @@
 from collections import Counter
-
-import aocd
-
-data = list([int(d) for d in aocd.get_data(day=23).split(",")])
-print(data)
+from typing import List
 
 IN_SIZE = {1: 4, 2: 4, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 2, 99: 1}
 IN_NAME = {1: "add", 2: "mul", 3: "rd", 4: "prnt", 5: "jnz", 6: "jz",
            7: "lt", 8: "eq", 9: "bas", 99: "ret"}
 EXT_MEM = 1000
 
-class Process():  # wrapper for generator
+class Process:  # wrapper for generator
     def __init__(self, data, ptr=0, dbg=False):
         self.d = data[:] + [0] * EXT_MEM  # copy + extend memory
         self.done = False
@@ -32,14 +28,12 @@ class Process():  # wrapper for generator
                       self.d[ptr:ptr + 4], sep="\t")  # debug print
         return [ins] + param
 
-    def process(self, inp, dbg=False):
-        out = [];
-        ptr = self.ptr;
+    def compute(self, inp, dbg=False):
+        out = []
+        ptr = self.ptr
         d = self.d  # initializations
-        parse = lambda i: [i % 100] + [i // 10 ** e % 10 for e in range(2, 5)]
         while ptr < len(d):  # stop on EOF
             ins, p1, p2, p3 = self.parse_ins(ptr, dbg=dbg)
-            # if dbg:print(ptr, d)                              # debug print
             if ins == 1:
                 d[p3] = d[p1] + d[p2]  # add
             elif ins == 2:
@@ -66,38 +60,35 @@ class Process():  # wrapper for generator
             ptr += IN_SIZE[ins]  # jmp is compensated with -3    # move ptr
 
     def process_str(self, inp):
-        out = self.process([ord(c) for c in inp])
+        out = self.compute([ord(c) for c in inp])
         return "".join([chr(i) if i in range(256) else str(i) for i in out])
 
-# tests in other files
 
+def test_23(data: List[int], level):
+    proc, packets, nat = [], [], []
+    a = b = 0  # avoid unreferenced variable error
+    ctr = Counter()
 
-proc, packets, nat = [], [], []
-c = Counter()
+    # init processors and send -1 package
+    for i in range(50):
+        proc.append(Process(data))
+        packets += proc[i].compute([i, -1])
 
-# init processors and send -1 package
-for i in range(50):
-    proc.append(Process(data))
-    packets += proc[i].process([i, -1])
+    # network loop: send and collect packets
+    for i in range(100):  # repeat arbitrary amount of times
+        while packets:  # false if empty
+            dest, x, y = packets.pop(0), packets.pop(0), packets.pop(0)
+            if dest == 255:  # 255 package goes to nat
+                if i == 0: a = y  # save first nat package for later
+                nat = [x, y]  # overwrite nat package
+            else:  # normal case: process package
+                packets += proc[dest].compute([x, y])
 
-# network loop: send and collect packets 
-for i in range(100):  # repeat arbitrary amount of times
-    while packets:  # false if empty
-        dest, x, y = packets.pop(0), packets.pop(0), packets.pop(0)
-        if dest == 255:  # 255 package goes to nat
-            if i == 0: a = y  # save first nat package for later
-            nat = [x, y]  # overwrite nat package
-        else:  # normal case: process package
-            packets += proc[dest].process([x, y])
+        # after all packets have been sent, send nat package to proc0
+        packets += proc[0].compute(nat[:])
 
-    # after all packets have been sent, send nat package to proc0
-    packets += proc[0].process(nat[:])
-
-    # check if a message was sent twice
-    c.update({nat[1]: 1})  # increase counter for current y by 1
-    mc = c.most_common()[0]  # tuple (most_common_element, cnt)
-    if mc[1] == 2: b = mc[0]; break
-
-aocd.submit(a, day=23)
-
-aocd.submit(b, day=23)
+        # check if a message was sent twice
+        ctr.update({nat[1]: 1})  # increase counter for current y by 1
+        mc = ctr.most_common()[0]  # tuple (most_common_element, cnt)
+        if mc[1] == 2: b = mc[0]; break
+    return b if level else a

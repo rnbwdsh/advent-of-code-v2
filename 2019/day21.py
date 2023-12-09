@@ -1,7 +1,4 @@
-import aocd
-
-data = list([int(d) for d in aocd.get_data(day=21).split(",")])
-print(data)
+from typing import List
 
 IN_SIZE = {1: 4, 2: 4, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 2, 99: 1}
 IN_NAME = {1: "add", 2: "mul", 3: "rd", 4: "prnt", 5: "jnz", 6: "jz",
@@ -30,14 +27,12 @@ class Process():  # wrapper for generator
                       self.d[ptr:ptr + 4], sep="\t")  # debug print
         return [ins] + param
 
-    def process(self, inp, dbg=False):
-        out = [];
-        ptr = self.ptr;
+    def compute(self, inp, dbg=False):
+        out = []
+        ptr = self.ptr
         d = self.d  # initializations
-        parse = lambda i: [i % 100] + [i // 10 ** e % 10 for e in range(2, 5)]
         while ptr < len(d):  # stop on EOF
             ins, p1, p2, p3 = self.parse_ins(ptr, dbg=dbg)
-            # if dbg:print(ptr, d)                              # debug print
             if ins == 1:
                 d[p3] = d[p1] + d[p2]  # add
             elif ins == 2:
@@ -64,26 +59,20 @@ class Process():  # wrapper for generator
             ptr += IN_SIZE[ins]  # jmp is compensated with -3    # move ptr
 
     def process_str(self, inp):
-        out = self.process([ord(c) for c in inp])
+        out = self.compute([ord(c) for c in inp])
         return "".join([chr(i) if i in range(256) else str(i) for i in out])
 
-# tests in other files
 
-
-data = list([int(d) for d in aocd.get_data(day=21).split(",")])
-# jump if (!A) & (!B) | (!C) OR (!C) AND D
-aocd.submit(int(Process(data).process_str("""NOT A T
+PROG_0 = """NOT A T
 NOT B J
 OR J T
 NOT C J
 OR T J
 AND D J
 WALK
-""").split("\n")[-1]), day=21)
+"""
 
-data = list([int(d) for d in aocd.get_data(day=21).split(",")])
-
-aocd.submit(int(Process(data).process_str("""NOT I T
+PROG_1 = """NOT I T
 NOT T J
 OR F J
 AND E J
@@ -96,4 +85,7 @@ AND C T
 NOT T T
 AND T J
 RUN
-""").split("\n")[-1]), day=21)
+"""
+
+def test_21(data: List[int], level):
+    return Process(data).process_str(PROG_1 if level else PROG_0).split("\n")[-1]
