@@ -30,7 +30,8 @@ def test_22(data: List[str], level):
                 add += int(op[-1]) * mul
             # shuffle_into_new_deck reverses the deck               _> save inverse, which is normal
             elif op[-2] == "new":
-                mul *= -1; add += mul
+                mul *= -1
+                add += mul
             # deal_with_increments multiplies                       -> save the inverse of this multiplication
             else:
                 mul *= pow(int(op[-1]), -1, deck_size)

@@ -4,11 +4,23 @@
 * 2016: Nim (done in 2022)
 * 2017: Lost to time -> todo: redo in Python
 * 2018: Python - todo: pytest integration
-* 2019: Python - todo: pytest integration
+* 2019: Python - pytest integration
 * 2020: Python - with pytest integration
 * 2021: Python - with pytest integration
 * 2022: Python - with pytest integration
 * 2023: Python - with pytest integration
+
+# TODO
+
+Fix 
+* 2021/23
+* 2020/11
+* 2019/10
+* 2019/12
+* 2019/16
+* 2019/18
+* 2019/19
+* 2019/25
 
 # Why
 

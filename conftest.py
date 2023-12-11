@@ -1,4 +1,5 @@
 from typing import Callable, List, Tuple, Any
+import re
 
 from _pytest.config import hookimpl
 from _pytest.fixtures import SubRequest, fixture
@@ -25,8 +26,10 @@ def run_example(func: Callable, input_data: str, expected: Example, level: int, 
 def run_real(func, puzzle, level, parser):
     inp = parser(puzzle.input_data)
     answer = func(inp, level)
-    setattr(puzzle, f"answer{'_b' if level else '_a'}", answer)
-    assert puzzle.answered_b if level else puzzle.answered_a, f"Wrong answer\n{answer=}"
+    if (level and puzzle.answered_b) or puzzle.answered_a:
+        assert (puzzle.answer_b if level else puzzle.answer_a) == make_str(answer)
+    else:
+        setattr(puzzle, f"answer{'_b' if level else '_a'}", answer)
 
 def wrap_func(func, markers: List[Mark], puzzle: Puzzle, level: int, **_):
     def wrapper(*_, **__):  # *_ / **_ is to ignore arguments
@@ -48,7 +51,7 @@ def wrap_func(func, markers: List[Mark], puzzle: Puzzle, level: int, **_):
 
 @fixture
 def data(request: SubRequest):
-    day = int(request.fspath.purebasename.replace("day", ""))  # noqa
+    day = int(request.fspath.purebasename.replace("day", "")[:2])  # noqa
     year = int(request.fspath.dirpath().basename)  # noqa
     request.node.funcargs["puzzle"] = Puzzle(year=year, day=day)
 
@@ -68,6 +71,7 @@ def level_b(level: int, request: SubRequest): pass  # noqa, dummy fixtures to on
 
 @hookimpl(hookwrapper=True)
 def pytest_pyfunc_call(pyfuncitem: Function):
-    pyfuncitem.funcargs["markers"] = pyfuncitem.own_markers
-    pyfuncitem.obj = wrap_func(pyfuncitem.obj, **pyfuncitem.funcargs)
+    if re.match(r"test_\d?\d", pyfuncitem.function.__name__):
+        pyfuncitem.funcargs["markers"] = pyfuncitem.own_markers
+        pyfuncitem.obj = wrap_func(pyfuncitem.obj, **pyfuncitem.funcargs)
     yield

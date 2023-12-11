@@ -2,83 +2,11 @@ from typing import List
 
 import numpy as np
 
-IN_SIZE = {1: 4, 2: 4, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 2, 99: 1}
-IN_NAME = {1: "add", 2: "mul", 3: "rd", 4: "prnt", 5: "jnz", 6: "jz",
-           7: "lt", 8: "eq", 9: "bas", 99: "ret"}
-EXT_MEM = 10000
+from computer import Computer
+from parsers import parse_array
+
 RNG = np.random.default_rng(42)
 
-class Process:  # wrapper for generator
-    def __init__(self, data, ptr=0):
-        self.d = data[:] + [0] * EXT_MEM  # copy + extend memory
-        self.done = False
-        self.base = 0
-        self.ptr = ptr
-
-    def parse_ins(self, ptr):
-        param = [0, 0, 0]
-        ins = self.d[ptr] % 100
-        modes = [self.d[ptr] // 10 ** e % 10 for e in range(2, 5)]
-        for i, mode in enumerate(modes):
-            size = IN_SIZE[ins] - 1
-            if i < size:
-                p = ptr + 1 + i
-                if mode == 0:  param[i] = self.d[p]  # position
-                if mode == 1:  param[i] = p  # intermediate
-                if mode == 2:  param[i] = self.base + self.d[p]  # relative
-        return [ins] + param
-
-    def process(self, inp):
-        out = []
-        ptr = self.ptr
-        d = self.d  # initializations
-        while ptr < len(d):  # stop on EOF
-            ins, p1, p2, p3 = self.parse_ins(ptr)
-            if ins == 1:
-                d[p3] = d[p1] + d[p2]  # add
-            elif ins == 2:
-                d[p3] = d[p1] * d[p2]  # mul
-            elif ins == 3:  # read
-                if not inp:
-                    self.ptr = ptr
-                    return out  # wait/flush
-                d[p1] = inp.pop(0)  # read
-            elif ins == 4:
-                out.append(d[p1])  # print
-            elif ins == 5:
-                ptr = d[p2] - 3 if d[p1] else ptr  # jnz
-            elif ins == 6:
-                ptr = d[p2] - 3 if not d[p1] else ptr  # jz
-            elif ins == 7:
-                d[p3] = int(d[p1] < d[p2])  # lt
-            elif ins == 8:
-                d[p3] = int(d[p1] == d[p2])  # eq
-            elif ins == 9:
-                self.base += d[p1]  # base
-            elif ins == 99:
-                self.done = True; return out  # ret
-            else:
-                print(f"invalid opcode {ins} @ {ptr}")  # err
-            ptr += IN_SIZE[ins]  # jmp is compensated with -3    # move ptr
-
-def parse(text):
-    return np.array([list(c) for c in text.strip().split("\n")])
-
-def il2str(il):
-    return "".join([chr(i) for i in il])
-
-def calc(field):
-    s = 0
-    for pos, val in np.ndenumerate(field):
-        try:
-            cmp = np.array([field[tuple(np.array(pos) + p)]
-                            for p in [[0, 0], [0, 1], [1, 0], [-1, 0], [0, -1]]])
-            if all(np.not_equal(cmp, ".")):
-                s += pos[0] * pos[1]
-                field[pos] = "O"
-        except IndexError:
-            pass
-    return s
 
 def frame(field):  # draw a "." frame around view
     nf = np.full((field.shape[0] + 2, field.shape[1] + 2), ".")
@@ -121,14 +49,25 @@ def compress(orig):
         if len(set(ol)) == 4:  # must be [ABC,]
             return [ol] + sl
 
-
 t2c = lambda pos: tuple([int(pos.real), int(pos.imag)])  # tuple 2 complex
 
+C, L, R, U, D = (0, 0), (0, -1), (0, 1), (-1, 0), (1, 0)
 
 def test_17(data: List[int], level):
-    field = parse(il2str(Process(data).process(inp=[1])))
-    if not level:
-        return calc(field)
-    inp = [ord(c) for c in "\n".join(compress(path(field)) + ["n\n"]).replace("R", "R,").replace("L", "L,")]
-    res = (Process([2] + data[1:]).process(inp))
-    return res[-1]
+    field = Computer(data, ext_mem=100_000).compute([1])
+    field = parse_array("".join([chr(i) for i in field]).strip())
+    if level:
+        inp = [ord(c) for c in "\n".join(compress(path(field)) + ["n\n"]).replace("R", "R,").replace("L", "L,")]
+        res = (Computer([2] + data[1:]).compute(inp))
+        return res[-1]
+
+    total = 0
+    for pos, val in np.ndenumerate(field):
+        try:
+            cmp = np.array([field[tuple(np.array(pos) + p)] for p in [C, L, R, U, D]])
+            if all(np.not_equal(cmp, ".")):
+                total += pos[0] * pos[1]
+                field[pos] = "O"
+        except IndexError:
+            pass
+    return total

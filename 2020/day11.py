@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 FLOOR, EMPTY, OCCUPIED = [0, 1, 2]
 DIRECTIONS = ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
@@ -20,6 +21,7 @@ def neighbors(dc, i, j, dist):
     return cnt
 
 
+@pytest.mark.notest
 def test_11(data, level):  # numba can't optimize parsing, so we'll do it non-jitted
     data = np.array([[".L#".index(line[i]) for i in range(len(line))] for line in data])
 

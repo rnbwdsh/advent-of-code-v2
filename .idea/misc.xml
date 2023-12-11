@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
     <option name="sdkName" value="Python 3.11" />
@@ -6,6 +7,9 @@
     <option name="rootPaths">
       <list />
     </option>
+  </component>
+  <component name="PWA">
+    <option name="wasEnabledAtLeastOnce" value="true" />
   </component>
   <component name="ProjectRootManager">
     <output url="file://$PROJECT_DIR$/out" />

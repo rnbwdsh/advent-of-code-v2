@@ -20,6 +20,7 @@ def step0(world):
 def step1(worlds):
     w = defaultdict(lambda: np.zeros((5, 5)))
     x_max, y_max = worlds[0].shape
+    idx = 0
 
     for wi, world in copy(worlds).items():
         w[wi] = np.zeros_like(world, dtype=bool)

@@ -8,7 +8,7 @@ Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
 Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
 Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green""", 8, 2286)
-def test_2(data: List[str], level):
+def test_02(data: List[str], level):
     total_game = 0
     max_per_col = {"red": 12, "green": 13, "blue": 14}
     for line in data:

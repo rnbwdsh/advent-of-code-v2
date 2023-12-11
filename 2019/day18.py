@@ -70,7 +70,8 @@ def process(data: np.ndarray):
 def test_18(data: np.ndarray, level):
     if level:
         center = np.nonzero(np.equal(data, "@"))[0][0]
-        data[center - 1:center + 2, center - 1:center + 2] = np.array([["@", "#", "@"], ["#", "#", "#"], ["@", "#", "@"]])
+        data[center - 1:center + 2, center - 1:center + 2] = np.array(
+            [["@", "#", "@"], ["#", "#", "#"], ["@", "#", "@"]])
         return sum(map(process, [data[:center + 1, :center + 1],
                                  data[center:, :center + 1],
                                  data[:center + 1, center:],

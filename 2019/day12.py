@@ -26,8 +26,9 @@ def simulate(pos, vel, t):
 
 @pytest.mark.notest
 def test_12(data: List[str], level):
-    data = [re.split("[=>,]", line)[1::2] for line in data]
-    data = np.array([[int(a) for a in line] for line in data])
+    data = [list(map(int, re.split("[=>,]", line)[1::2])) for line in data]
+    data = np.array(data)
     sim_num = 1000000 if level else 1000
     vel = np.zeros_like(data)
-    return simulate(data, vel, sim_num) if level else sum(np.sum(np.abs(data[i])) * np.sum(np.abs(vel[i])) for i in range(len(data)))
+    return simulate(data, vel, sim_num) if level else sum(
+        np.sum(np.abs(data[i])) * np.sum(np.abs(vel[i])) for i in range(len(data)))
