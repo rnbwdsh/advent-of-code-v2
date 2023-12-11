@@ -26,7 +26,7 @@ def run_example(func: Callable, input_data: str, expected: Example, level: int, 
 def run_real(func, puzzle, level, parser):
     inp = parser(puzzle.input_data)
     answer = func(inp, level)
-    if (level and puzzle.answered_b) or puzzle.answered_a:
+    if puzzle.answered_b if level else puzzle.answered_a:
         assert (puzzle.answer_b if level else puzzle.answer_a) == make_str(answer)
     else:
         setattr(puzzle, f"answer{'_b' if level else '_a'}", answer)
