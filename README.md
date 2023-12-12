@@ -13,6 +13,8 @@ Fix
 
 ## Why
 
+My [previous AoC repo](https://github.com/rnbwdsh/advent-of-code) was a mess, and I wanted to bring everything to a standardized format in python.
+
 To see how my programming skills evolve over time, and to learn pytest
 
 I'd also later like to use this as LLM training data
