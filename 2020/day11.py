@@ -1,14 +1,13 @@
 import numpy as np
-import pytest
 
-FLOOR, EMPTY, OCCUPIED = [0, 1, 2]
+FLOOR, EMPTY, OCCUPIED = 0, 1, 2
 DIRECTIONS = ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
 
 def neighbors(dc, i, j, dist):
     im, jm = dc.shape
     cnt = 0
     for ip, jp in DIRECTIONS:
-        for d in range(1, dist):
+        for d in range(1, dist+1):
             ipos, jpos = i + ip * d, j + jp * d
             if 0 <= ipos < im and 0 <= jpos < jm:
                 if (dcp := dc[ipos][jpos]) == EMPTY:
@@ -21,7 +20,6 @@ def neighbors(dc, i, j, dist):
     return cnt
 
 
-@pytest.mark.notest
 def test_11(data, level):  # numba can't optimize parsing, so we'll do it non-jitted
     data = np.array([[".L#".index(line[i]) for i in range(len(line))] for line in data])
 
@@ -33,7 +31,7 @@ def test_11(data, level):  # numba can't optimize parsing, so we'll do it non-ji
         for i in range(im):
             for j in range(jm):
                 if (curr := dc[i][j]) != FLOOR:
-                    neigh = neighbors(dc, i, j, 11 if level else 2)
+                    neigh = neighbors(dc, i, j, len(data) if level else 1)
                     if curr == OCCUPIED and neigh >= 4 + level:
                         curr = EMPTY
                     elif curr == EMPTY and not neigh:

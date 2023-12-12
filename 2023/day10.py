@@ -30,10 +30,9 @@ def test_10(data: List[str], level):
     data = parse_array(joined_data)
 
     start = tuple(np.argwhere(data == "S")[0])
-    g = nx.Graph()
-    for (x, y), v in np.ndenumerate(data):  # construct graph
-        for dx, dy in CONN.get(v, ()):  # if v not in conn, just don't add anything
-            g.add_edge((x, y), (x + dx, y + dy))
+    g = nx.Graph(((x, y), (x + dx, y + dy))   # just add the edges specified in the input, the nodes are created implicitly
+                 for (x, y), v in np.ndenumerate(data)
+                 for dx, dy in CONN.get(v, ()))
 
     if level:
         g = nx.subgraph(g, nx.node_connected_component(g, start))  # retain only start-reachable
