@@ -27,5 +27,9 @@ dev = []
 [build-system]
 
 [tool.pytest.ini_options]
+markers = [
+    "data: mark a test as a data test",
+    "notest: mark a test as not using test data",
+]
 python_files = "day*.py"
 addopts = "-s --no-header --ignore=2015 --ignore=2016 --ignore=2017 --ignore=2018"  # -n 32
