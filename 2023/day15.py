@@ -10,7 +10,7 @@ def hash_(s: str) -> int:
 def test_15(data: str, level):
     data = data.replace("\n", "").split(",")
     if level:
-        boxes = [OrderedDict() for _ in range(256)]
+        boxes = [OrderedDict() for _ in range(256)]  # only ordereddict yields items in the order you put them in with .items
         for part in data:
             if "=" in part:
                 box, part = part.split("=")
