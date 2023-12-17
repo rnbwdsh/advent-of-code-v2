@@ -3,14 +3,12 @@ from functools import reduce
 
 import pytest
 
-def hash_(s: str) -> int:
-    return reduce(lambda curr, c: (curr + ord(c)) * 17 % 256, s, 0)
-
 @pytest.mark.data("""rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7""", 1320, 145)
 def test_15(data: str, level):
     data = data.replace("\n", "").split(",")
     if level:
-        boxes = [OrderedDict() for _ in range(256)]  # only ordereddict yields items in the order you put them in with .items
+        boxes = [OrderedDict() for _ in
+                 range(256)]  # only ordereddict yields items in the order you put them in with .items
         for part in data:
             if "=" in part:
                 box, part = part.split("=")
@@ -24,3 +22,6 @@ def test_15(data: str, level):
                    for idx_slot, (_, v) in enumerate(box.items(), 1))
     else:
         return sum(hash_(part) for part in data)
+
+def hash_(s: str) -> int:
+    return reduce(lambda curr, c: (curr + ord(c)) * 17 % 256, s, 0)

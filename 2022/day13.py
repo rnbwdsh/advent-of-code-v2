@@ -1,5 +1,19 @@
 from typing import List, Optional
 
+def test_13(data: List[List[str]], level):
+    valid_chunks = []
+    if level:
+        data = [",".join(line) for line in data]
+        data = list(eval(",".join(data))) + [[2], [6]]
+        bubble_sort(data)
+        return (data.index([2]) + 1) * (data.index([6]) + 1)
+    else:
+        for i, line in enumerate(data):
+            data = eval(",".join(line))
+            if compare(*data):
+                valid_chunks.append(i + 1)
+    return sum(valid_chunks)
+
 def compare(a: int | List, b: int | List) -> Optional[bool]:
     if isinstance(a, int) and isinstance(b, int):
         if a == b:  # Otherwise, the inputs are the same integer
@@ -25,17 +39,3 @@ def bubble_sort(data):
             if not compare(data[i], data[j]):
                 data[i], data[j] = data[j], data[i]
     return data
-
-def test_13(data: List[List[str]], level):
-    valid_chunks = []
-    if level:
-        data = [",".join(line) for line in data]
-        data = list(eval(",".join(data))) + [[2], [6]]
-        bubble_sort(data)
-        return (data.index([2]) + 1) * (data.index([6]) + 1)
-    else:
-        for i, line in enumerate(data):
-            data = eval(",".join(line))
-            if compare(*data):
-                valid_chunks.append(i + 1)
-    return sum(valid_chunks)

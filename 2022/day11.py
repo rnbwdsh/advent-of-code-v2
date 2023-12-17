@@ -10,6 +10,17 @@ PATTERN = r"""Monkey (\d+):
  +If true: throw to monkey (\d+)
  +If false: throw to monkey (\d+)"""
 
+def test_11(data: List[List[str]], level):
+    monkeys = [Monkey("\n".join(chunk)) for chunk in data]
+    if level:
+        divisors = np.lcm.reduce([m.divisor for m in monkeys])  # noqa
+        for m in monkeys:
+            m.residue = divisors
+    for _ in range(10000 if level else 20):
+        for m in monkeys:
+            m.process(monkeys)
+    return np.prod(sorted([m.cnt for m in monkeys])[-2:])
+
 class Monkey:
     def __init__(self, chunk: str):
         self.residue = 0  # equivalence class for numbers
@@ -41,14 +52,3 @@ class Monkey:
             target = self.if_true if i % self.divisor == 0 else self.if_false
             monkeys[target].items.append(i)
         self.items = []
-
-def test_11(data: List[List[str]], level):
-    monkeys = [Monkey("\n".join(chunk)) for chunk in data]
-    if level:
-        divisors = np.lcm.reduce([m.divisor for m in monkeys])  # noqa
-        for m in monkeys:
-            m.residue = divisors
-    for _ in range(10000 if level else 20):
-        for m in monkeys:
-            m.process(monkeys)
-    return np.prod(sorted([m.cnt for m in monkeys])[-2:])

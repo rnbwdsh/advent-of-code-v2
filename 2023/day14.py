@@ -16,7 +16,7 @@ def test_14(data: np.ndarray, level):
         seen = ["".join(data.flatten())]
         seen_at = [data]
         for time in range(1000):
-            for _ in range(4):   # north, west, south, east. up is -1
+            for _ in range(4):  # north, west, south, east. up is -1
                 data = roll_north(data)
                 data = np.rot90(data, -1)
             after = "".join(data.flatten())

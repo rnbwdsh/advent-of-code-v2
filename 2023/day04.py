@@ -14,8 +14,8 @@ def test_04(data: List[str], level):
     total = 0
     ctr = Counter()
     for line in data:
-        num, left, right = re.search( r'Card +(\d+):([\d ]+)\|([\d ]+)', line.replace("  ", " ")).groups()
-        left  = set([int(l) for l in  left.strip().split(" ")])
+        num, left, right = re.search(r'Card +(\d+):([\d ]+)\|([\d ]+)', line.replace("  ", " ")).groups()
+        left = set([int(l) for l in left.strip().split(" ")])
         right = set([int(r) for r in right.strip().split(" ")])
         nr_match = len(left & right)
         if nr_match:
@@ -25,7 +25,7 @@ def test_04(data: List[str], level):
         max_id = max(ctr.keys())
         ticket_num = Counter(ctr.keys())
         for src in range(max_id):
-            ticket_num += {to_add+1: ticket_num[src]
+            ticket_num += {to_add + 1: ticket_num[src]
                            for to_add in range(src, src + ctr[src])
                            if to_add < max_id}
         return sum(ticket_num.values())

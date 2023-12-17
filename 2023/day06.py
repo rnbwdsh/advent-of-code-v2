@@ -1,5 +1,4 @@
 import re
-from collections import Counter
 from typing import List
 
 import numpy as np
@@ -14,6 +13,6 @@ def test_06(data: List[str], level):
         dist = dist.replace(" ", "")
     time = [int(i) for i in re.findall("\d+", time)]
     dist = [int(i) for i in re.findall("\d+", dist)]
-    return np.prod([sum((t-wt) * wt > d
+    return np.prod([sum((t - wt) * wt > d
                         for wt in range(1, t))
                     for t, d in zip(time, dist)])

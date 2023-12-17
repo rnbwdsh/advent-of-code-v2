@@ -3,12 +3,6 @@ import itertools
 import numpy as np
 import pytest
 
-def distance(start, end, expand_size, empty_cols, empty_rows):
-    return (abs(start[0] - end[0]) +
-            abs(start[1] - end[1]) +
-            sum(expand_size for i in range(min(start[0], end[0]), max(start[0], end[0])) if empty_rows[i]) +
-            sum(expand_size for i in range(min(start[1], end[1]), max(start[1], end[1])) if empty_cols[i]))
-
 @pytest.mark.data("""...#......
 .......#..
 #.........
@@ -27,3 +21,9 @@ def test_11(data: np.ndarray, level):
     list_xy = list(zip(*np.nonzero(np.equal(data, "#"))))
     return sum(distance(start, end, expand, empty_cols, empty_rows)
                for start, end in itertools.combinations(list_xy, 2))
+
+def distance(start, end, expand_size, empty_cols, empty_rows):
+    return (abs(start[0] - end[0]) +
+            abs(start[1] - end[1]) +
+            sum(expand_size for i in range(min(start[0], end[0]), max(start[0], end[0])) if empty_rows[i]) +
+            sum(expand_size for i in range(min(start[1], end[1]), max(start[1], end[1])) if empty_cols[i]))

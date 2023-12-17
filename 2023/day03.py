@@ -3,6 +3,30 @@ import re
 import numpy as np
 import pytest
 
+@pytest.mark.data("""467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..""", 4361, 467835)
+def test_03(data: np.ndarray, level):
+    symbols = set("*") if level else set("".join(data.flatten())) - set(".0123456789")
+
+    # mask in all symbols and their neighbors, as well as numbers next to those
+    mask = mask_in_around_symbols(data, symbols)
+    masked = np.full(data.shape, ".", dtype=str)
+    masked[mask] = data[mask]
+
+    if level:
+        return sum(gen_mul_adjacent(data, replace_connected(data, masked)))
+    else:
+        joined = ".".join(["".join(row) for row in masked])
+        return sum([int(n) for n in re.findall(r"\d+", joined)])
+
 def replace_connected(field, masked):
     replaced = np.zeros(field.shape, dtype=int)
     for x in range(field.shape[0]):
@@ -41,27 +65,3 @@ def gen_mul_adjacent(field, replaced):
         surrounding = set(list(replaced[x - 1:x + 2, y - 1:y + 2].flatten())) - {0}
         if len(surrounding) == 2:
             yield np.prod(list(surrounding))
-
-@pytest.mark.data("""467..114..
-...*......
-..35..633.
-......#...
-617*......
-.....+.58.
-..592.....
-......755.
-...$.*....
-.664.598..""", 4361, 467835)
-def test_03(data: np.ndarray, level):
-    symbols = set("*") if level else set("".join(data.flatten())) - set(".0123456789")
-
-    # mask in all symbols and their neighbors, as well as numbers next to those
-    mask = mask_in_around_symbols(data, symbols)
-    masked = np.full(data.shape, ".", dtype=str)
-    masked[mask] = data[mask]
-
-    if level:
-        return sum(gen_mul_adjacent(data, replace_connected(data, masked)))
-    else:
-        joined = ".".join(["".join(row) for row in masked])
-        return sum([int(n) for n in re.findall(r"\d+", joined)])

@@ -4,14 +4,6 @@ from typing import Dict, Tuple
 
 import pytest
 
-def run_sim(instructions: str, conn: Dict[str, Tuple[str, str]], pos: str):
-    for time in range(1000000):
-        step = instructions[time % len(instructions)]
-        choice = conn[pos]
-        pos = choice[step == "R"]
-        if pos.endswith("Z"):
-            return time + 1
-
 @pytest.mark.data(("""RL
 
 AAA = (BBB, CCC)
@@ -39,3 +31,11 @@ def test_08(data: str, level):
         starts = [pos for pos in conn if pos.endswith("A")]
         return lcm(*[run_sim(instructions, conn, pos) for pos in starts])
     return run_sim(instructions, conn, "AAA")
+
+def run_sim(instructions: str, conn: Dict[str, Tuple[str, str]], pos: str):
+    for time in range(1000000):
+        step = instructions[time % len(instructions)]
+        choice = conn[pos]
+        pos = choice[step == "R"]
+        if pos.endswith("Z"):
+            return time + 1

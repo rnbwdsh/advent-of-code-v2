@@ -7,21 +7,6 @@ from typing import Dict
 import networkx as nx
 import numpy as np
 
-class State:
-    def __init__(self, pos, visited, length, score):
-        self.pos = pos
-        self.visited = visited
-        self.length = length
-        self.score = score
-
-def followup_states(s: State, g: nx.DiGraph, node_flow: Dict):
-    states = []
-    for n in g.neighbors(s.pos):
-        new_len = s.length - g[s.pos][n]["weight"] - 1
-        if n not in s.visited and new_len > 0:
-            states.append(State(pos=n, visited=s.visited | {n}, length=new_len, score=s.score + node_flow[n] * new_len))
-    return states
-
 def test_16(data, level):
     # create base graph
     g = nx.DiGraph()
@@ -59,3 +44,18 @@ def test_16(data, level):
         return (scores.T + scores)[mask].max()
     else:
         return max([s.score for s in states])
+
+class State:
+    def __init__(self, pos, visited, length, score):
+        self.pos = pos
+        self.visited = visited
+        self.length = length
+        self.score = score
+
+def followup_states(s: State, g: nx.DiGraph, node_flow: Dict):
+    states = []
+    for n in g.neighbors(s.pos):
+        new_len = s.length - g[s.pos][n]["weight"] - 1
+        if n not in s.visited and new_len > 0:
+            states.append(State(pos=n, visited=s.visited | {n}, length=new_len, score=s.score + node_flow[n] * new_len))
+    return states

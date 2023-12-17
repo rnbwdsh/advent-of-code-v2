@@ -10,6 +10,11 @@ import pytest
 RESOURCES = ["ore", "clay", "obsidian", "geode"]
 MUL = np.array([8 ** i for i in range(8)], dtype=np.int64)
 
+@pytest.mark.notest
+def test_19(data, level):
+    res = Pool(32).map(partial(run_simulation, level=level), data[:3] if level else data)
+    return functools.reduce(operator.mul, res) if level else sum([r * i for i, r in enumerate(res, 1)])
+
 def forward(states, blueprint_line):
     state_next = states + blueprint_line  # try build
     valid_mask = state_next.min(axis=1) >= 0  # filter out steps that lead to negative resources
@@ -38,8 +43,3 @@ def run_simulation(line, level):
         states = states[(states[:, :3] + cost_build_all).min(axis=1) < 0]  # trim states that save too many resources
         states = states[states[:, 3] >= geode_count]  # trim states that don't have the max geode count
     return int(states[:, 3].max())
-
-@pytest.mark.notest
-def test_19(data, level):
-    res = Pool(32).map(partial(run_simulation, level=level), data[:3] if level else data)
-    return functools.reduce(operator.mul, res) if level else sum([r * i for i, r in enumerate(res, 1)])

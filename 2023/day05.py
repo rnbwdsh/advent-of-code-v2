@@ -2,7 +2,6 @@ from typing import List, Optional
 
 import pytest
 
-
 @pytest.mark.data("""seeds: 79 14 55 13
 
 seed-to-soil map:
@@ -39,17 +38,16 @@ humidity-to-location map:
 def test_05(data: List[List[str]], level):
     seeds = [int(i) for i in data[0][0].split(": ")[1].split(" ")]
     if level:
-        seeds = [range(a, a+b) for a, b in zip(seeds[::2], seeds[1::2])]
+        seeds = [range(a, a + b) for a, b in zip(seeds[::2], seeds[1::2])]
     else:
-        seeds = [range(s, s+1) for s in seeds]
+        seeds = [range(s, s + 1) for s in seeds]
     for chunk in data[1:]:
         mapper = {}
         for line in chunk[1:]:
             dst, src, ran = [int(i) for i in line.split(" ")]
-            mapper[range(src, src+ran)] = range(dst, dst+ran)
+            mapper[range(src, src + ran)] = range(dst, dst + ran)
         seeds = map_ranges(seeds, mapper)
     return min([s.start for s in seeds])
-
 
 def range_(start: int, stop: int) -> Optional[range]:
     if start >= stop:
@@ -57,9 +55,8 @@ def range_(start: int, stop: int) -> Optional[range]:
     return range(start, stop)
 
 def range_intersection(seed: range, to_match: range) -> (Optional[range], Optional[range], Optional[range]):
-    start = max(seed.start, to_match.start)
-    stop = min(seed.stop, to_match.stop)
-    return range_(start, stop)
+    return range_(start=max(seed.start, to_match.start),
+                  stop= min(seed.stop,  to_match.stop))
 
 def map_ranges(seeds, range_mapping):
     mapped_ranges = set()
