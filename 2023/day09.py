@@ -11,7 +11,7 @@ def test_09(data: List[str], level):
     return sum(map(expand, data))
 
 def expand(line: List[int]):
-    child = list(np.diff(line))
+    child: List = list(np.diff(line))
     if not all(np.equal(line, 0)):
         child.append(expand(child))
     return line[-1] + child[-1]
