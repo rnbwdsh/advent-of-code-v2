@@ -15,15 +15,15 @@ CONN = {"S": (U, D, L, R), "|": (U, D), "-": (L, R), "L": (R, U), "J": (L, U), "
 SJLL7
 |F--J
 LJ.LJ""",
-                   """..........
-                   .S------7.
-                   .|F----7|.
-                   .||OOOO||.
-                   .||OOOO||.
-                   .|L-7F-J|.
-                   .|II||II|.
-                   .L--JL--J.
-                   .........."""), 8, 4)
+"""..........
+.S------7.
+.|F----7|.
+.||OOOO||.
+.||OOOO||.
+.|L-7F-J|.
+.|II||II|.
+.L--JL--J.
+.........."""), 8, 4)
 def test_10(data: List[str], level):
     empty_line = "\n" + " " * (len(data[0]) * 2 - 1) + "\n"  # add empty line between every line
     joined_data = empty_line.join([" ".join(line) for line in data])  # add space between every char

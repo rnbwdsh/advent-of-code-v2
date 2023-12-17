@@ -30,10 +30,10 @@ def shortest_path(data: np.ndarray, start: Tuple[int, int], target: Tuple[int, i
     depth_min = 3 if level else 0
     g = nx.DiGraph()
 
-    for dir in DIR:  # add start and end nodes
-        g.add_edge("start", (start, dir, 0), weight=0)
+    for d in DIR:  # add start and end nodes
+        g.add_edge("start", (start, d, 0), weight=0)
         for r in range(depth_min, depth_max):
-            g.add_edge((target, dir, r), "end", weight=0)
+            g.add_edge((target, d, r), "end", weight=0)
 
     for pos_a in np.ndindex(data.shape):
         for dir_a, dir_b in product(DIR, repeat=2):
