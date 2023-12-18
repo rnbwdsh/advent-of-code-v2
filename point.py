@@ -46,24 +46,22 @@ class Point(tuple):
         if self in OPPOSITE.values():
             return Point(OPPOSITE[self])
 
-class PointList(List[Point]):
+class PointList(List[Point]):  # @see: https://github.com/blu3r4y/AdventOfCode2023/blob/main/src/day10.py
     @property
     def adjacent_pairs(self) -> List[Tuple[Point, Point]]:
         return list(zip(self, self[1:] + self[:1]))
 
     @property
-    def shoelace_area(self) -> int:
-        area = 0
-        for ((x1, y1), (x2, y2)) in self.adjacent_pairs:
-            area += x1*y2 - x2*y1
-        return abs(area) // 2
+    def shoelace_area(self) -> int:  # https://en.m.wikipedia.org/wiki/Shoelace_formula#Triangle_formula
+        return abs(sum(x1*y2 - x2*y1 for ((x1, y1), (x2, y2)) in self.adjacent_pairs)) // 2
 
     @property
     def sum_len(self) -> int:
-        l = 0
-        for pa, pb in self.adjacent_pairs:
-            l += abs(pa-pb)
-        return l
+        return sum(abs(pa-pb) for pa, pb in self.adjacent_pairs)
+
+    @property
+    def area(self):  # https://en.wikipedia.org/wiki/Pick%27s_theorem
+        return self.shoelace_area - self.sum_len // 2 + 1
 
 
 L = Point(0, -1)

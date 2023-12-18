@@ -1,12 +1,8 @@
-from typing import List
-
 import networkx as nx
 import numpy as np
 import pytest
-from scipy.ndimage.measurements import label
 
-from parsers import parse_array
-from point import U, D, L, R, Point
+from point import U, D, L, R, Point, PointList
 
 CONN = {"S": (U, D, L, R), "|": (U, D), "-": (L, R), "L": (R, U), "J": (L, U), "7": (L, D), "F": (R, D)}
 
@@ -14,8 +10,7 @@ CONN = {"S": (U, D, L, R), "|": (U, D), "-": (L, R), "L": (R, U), "J": (L, U), "
 .FJ|7
 SJLL7
 |F--J
-LJ.LJ""",
-"""..........
+LJ.LJ""", """..........
 .S------7.
 .|F----7|.
 .||OOOO||.
@@ -24,24 +19,12 @@ LJ.LJ""",
 .|II||II|.
 .L--JL--J.
 .........."""), 8, 4)
-def test_10(data: List[str], level):
-    empty_line = "\n" + " " * (len(data[0]) * 2 - 1) + "\n"  # add empty line between every line
-    joined_data = empty_line.join([" ".join(line) for line in data])  # add space between every char
-    data = parse_array(joined_data)
-
-    start = tuple(np.argwhere(data == "S")[0])
-    g = nx.Graph(
-        (Point(pd), Point(pd) + pdd)  # just add the edges specified in the input, the nodes are created implicitly
-        for pd, v in np.ndenumerate(data)
-        for pdd in CONN.get(v, ()))
-
+def test_10(data: np.ndarray, level):
+    start = Point(tuple(np.argwhere(data == "S")[0]))
+    g = nx.DiGraph([(Point(src), Point(src) + d)
+                    for src, val in np.ndenumerate(data)
+                    for d in CONN.get(val, ())])
+    g = g.to_undirected(reciprocal=True)  # remove all non-reciprocal edges
     if level:
-        g = nx.subgraph(g, nx.node_connected_component(g, start))  # retain only start-reachable
-        img = np.ones_like(data, dtype=int)  # convert graph back to matrix
-        for node in g.nodes:
-            img[node] = 0
-        img = np.pad(img, pad_width=1, constant_values=1)[1:, 1:]
-        img[np.equal(label(img)[0], 1)] = 0  # flood fill from 0/0 border
-        img = (img[::2, ::2] + img[1::2, ::2] + img[::2, 1::2] + img[1::2, 1::2]) == 4  # sample 50% of the img
-        return np.sum(img)
-    return max(nx.single_source_shortest_path_length(g, start).values()) // 2
+        return PointList([u for u, _ in nx.find_cycle(g, start)]).area
+    return max(nx.single_source_shortest_path_length(g, start).values())

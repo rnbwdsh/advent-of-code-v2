@@ -33,4 +33,4 @@ def test_18(data: List[str], level):
         pos = pos + side * dist
         corners.append(pos)
     pl = PointList(corners)
-    return pl.shoelace_area + pl.sum_len // 2 + 1
+    return pl.area + pl.sum_len
