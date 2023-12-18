@@ -49,12 +49,10 @@ class Point(tuple):
 class PointList(List[Point]):
     @property
     def adjacent_pairs(self) -> List[Tuple[Point, Point]]:
-        if self[0] != self[-1]:
-            self.append(self[0])
         return list(zip(self, self[1:] + self[:1]))
 
     @property
-    def area(self) -> int:
+    def shoelace_area(self) -> int:
         area = 0
         for ((x1, y1), (x2, y2)) in self.adjacent_pairs:
             area += x1*y2 - x2*y1
@@ -66,6 +64,7 @@ class PointList(List[Point]):
         for pa, pb in self.adjacent_pairs:
             l += abs(pa-pb)
         return l
+
 
 L = Point(0, -1)
 R = Point(0, 1)
