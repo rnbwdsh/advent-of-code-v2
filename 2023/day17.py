@@ -5,7 +5,7 @@ import networkx as nx
 import numpy as np
 import pytest
 
-from util import add_pos, in_bounds, DIR, OPPOSITE
+from point import Point, DIR
 
 @pytest.mark.data("""2413432311323
 3215453535623
@@ -37,8 +37,8 @@ def shortest_path(data: np.ndarray, start: Tuple[int, int], target: Tuple[int, i
 
     for pos_a in np.ndindex(data.shape):
         for dir_a, dir_b in product(DIR, repeat=2):
-            pos_b = add_pos(pos_a, dir_b)
-            if not in_bounds(pos_b, data) or dir_b == OPPOSITE[dir_a]:
+            pos_b = Point(pos_a) + dir_b
+            if not pos_b.in_bounds(data) or dir_b == dir_a.opposite:
                 continue  # going oob or back is not allowed
             for r in range(0 if dir_a == dir_b else depth_min, depth_max):
                 g.add_edge((pos_a, dir_a, r), (pos_b, dir_b, r+1 if dir_a == dir_b else 0), weight=data[*pos_b])

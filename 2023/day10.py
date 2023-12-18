@@ -6,7 +6,7 @@ import pytest
 from scipy.ndimage.measurements import label
 
 from parsers import parse_array
-from util import U, D, L, R
+from point import U, D, L, R, Point
 
 CONN = {"S": (U, D, L, R), "|": (U, D), "-": (L, R), "L": (R, U), "J": (L, U), "7": (L, D), "F": (R, D)}
 
@@ -31,9 +31,9 @@ def test_10(data: List[str], level):
 
     start = tuple(np.argwhere(data == "S")[0])
     g = nx.Graph(
-        ((x, y), (x + dx, y + dy))  # just add the edges specified in the input, the nodes are created implicitly
-        for (x, y), v in np.ndenumerate(data)
-        for dx, dy in CONN.get(v, ()))
+        (Point(pd), Point(pd) + pdd)  # just add the edges specified in the input, the nodes are created implicitly
+        for pd, v in np.ndenumerate(data)
+        for pdd in CONN.get(v, ()))
 
     if level:
         g = nx.subgraph(g, nx.node_connected_component(g, start))  # retain only start-reachable

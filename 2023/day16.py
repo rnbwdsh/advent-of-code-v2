@@ -3,7 +3,7 @@ from typing import Tuple
 import numpy as np
 import pytest
 
-from util import add_pos, in_bounds, L, R, U, D
+from point import Point, U, R, L, D
 
 LOOKUP = {"/": {U: R, R: U, D: L, L: D},
           "\\": {U: L, L: U, D: R, R: D}}
@@ -28,12 +28,12 @@ def test_16(data: np.ndarray, level):
     return track_beam(data, (0, -1), R)
 
 def track_beam(data: np.ndarray, p: Tuple, d: Tuple) -> int:
-    todo = [(p, d)]
+    todo = [(Point(p), d)]
     seen = set()
     while todo:
         p, d = todo.pop()
-        p = add_pos(p, d)
-        if not in_bounds(p, data) or (p, d) in seen:
+        p += d
+        if not p.in_bounds(data) or (p, d) in seen:
             continue
         seen.add((p, d))
         val = data[p]
