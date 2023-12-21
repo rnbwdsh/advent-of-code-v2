@@ -1,8 +1,10 @@
+from typing import List
+
 import numpy as np
 import pytest
 from scipy.signal import convolve2d
 from tqdm import tqdm
-
+from sympy import interpolate
 from point import Point
 
 @pytest.mark.data("""...........
@@ -37,9 +39,9 @@ def test_21(data: np.ndarray, level):
         data = np.logical_and(data, rock_mask)
         hist.append(np.sum(data))
     # for debugging, use `plt.imshow(data); plt.show()` to see that you didn't go out of bounds
-    return solve_analytical(hist, rep) if level else np.sum(data)
+    return solve_analytical(hist, rep, target=26501365) if level else np.sum(data)
 
-def solve_analytical(ohist, rep):
+def solve_analytical(hist: List[int], rep, target=26501365):
     """ every 131*2 steps, history repeats itself (*2 because even/odd) and values grow the same as day09 with 2 layers
     3885			96215			311345			649275			1110005
             92330           215130          337930         460730
@@ -51,16 +53,6 @@ def solve_analytical(ohist, rep):
     and fill in values https://www.wolframalpha.com/input?i=5+%286871+-+18374+n+%2B+12280+n%5E2%29%2C+n%3D%28floor%2826501365+%2F+262%29+%2B+1%29
     to come to the correct result. the 0-indexed formula would be 5 (777 + 6186 n + 12280 n^2), n=101150 => 628206330073385
     """
-    hist = np.array(ohist)
-    start = 26501365 % rep  # 65 for field size of 131
-    pos_relevant = range(start, len(hist), rep*2)  # 65, 327, 589 for field size of 131
-    hist = hist[pos_relevant]
-    hist_diff = np.diff(hist)
-    hist_diff2 = np.diff(hist_diff)
-    v, d, dd = hist[0], hist_diff[0], hist_diff2[0]
-    for time in range(start, 26501365, rep*2):
-        if time < len(ohist):
-            assert v == ohist[time]  # check if our interpolated value is correct
-        v += d
-        d += dd
-    return v
+    pos_relevant = range(target % rep, len(hist), rep*2)  # 65, 327, 589 for field size of 131
+    points = [(i, hist[i]) for i in pos_relevant]
+    return int(interpolate(points, target))
