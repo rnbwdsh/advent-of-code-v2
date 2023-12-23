@@ -35,11 +35,11 @@ def test_20(data: List[str], level):
             sig = todo.pop(0)
             cnt[sig.high] += 1  # count low/high signals
             if rcv := modules.get(sig.receiver, None):
+                nxt = rcv.pulse(sig.sender, sig.high, btn_num)
                 try:
-                    nx = rcv.pulse(sig.sender, sig.high, btn_num)
-                    todo.extend(nx)
+                    todo.extend(nxt)
                 except TypeError:
-                    return nx
+                    return nxt
     return cnt[0] * cnt[1]
 
 Signal = namedtuple("Signal", "sender high receiver")

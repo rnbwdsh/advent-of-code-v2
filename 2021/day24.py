@@ -39,7 +39,7 @@ def test_24(data, level):
 
     # start solver
     optimizer = [s.maximize, s.minimize][level]
-    optimizer(sum((10 ** i) * d for i, d in enumerate(digits[::-1])))
+    optimizer(sum((10 ** i) * d for i, d in enumerate(digits[::-1])))  # noqa
     s.check()
     m = s.model()
     return ''.join([str(m[d]) for d in digits])

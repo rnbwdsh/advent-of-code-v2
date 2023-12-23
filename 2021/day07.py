@@ -2,7 +2,7 @@ from typing import List
 
 import numpy as np
 
-def distance(n: int, level):
+def distance(n: np.ndarray, level):
     return n * (n + 1) // 2 if level else n
 
 def test_07(data: List[int], level):

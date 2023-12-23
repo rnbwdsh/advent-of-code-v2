@@ -1,5 +1,3 @@
-from typing import List
-
 def test_20(data, level):
     mul = (811589153 if level else 1)
     nums = [(int(num_s) * mul, idx) for idx, num_s in enumerate(data)]  # adding index guarantees uniqueness

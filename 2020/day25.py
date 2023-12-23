@@ -8,5 +8,4 @@ def test_25(data: List[int], level_a):
     for i in range(1, 10000000000):
         x = (x * 7 % MOD)
         if a == x:
-            break
-    return pow(b, i, MOD)
+            return pow(b, i, MOD)
