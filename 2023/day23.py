@@ -40,16 +40,15 @@ def test_22(data: np.ndarray, level):
     for p, v in np.ndenumerate(data):
         if v == "#":
             g.remove_node(p)
-        if v in "<>^v" and not level:
+        if v in LOOKUP and not level:
             opp = point.OPPOSITE[LOOKUP[v]]
             target_forbidden = opp + p
             g.remove_edge(p, target_forbidden)
     if level:
-        pune_graph(g, start, target)
+        prune_graph(g, start, target)
     return max(nx.path_weight(g, p, weight="weight") for p in tqdm(nx.all_simple_paths(g, start, target)))
 
-def pune_graph(g, start, target):
-    """ Prune all dead ends and all points with exactly two neighbors. """
+def prune_graph(g, start, target):  # all dead ends and all points with exactly two neighbors
     cont = True
     while cont:
         cont = False
