@@ -3,7 +3,6 @@ from itertools import product
 from typing import List, Set, Optional
 
 import pytest
-from tqdm import tqdm
 
 from point import Point
 
@@ -18,8 +17,7 @@ def test_22(data: List[str], level):
     bricks = [Brick.create(line) for line in data]
     bricks.sort(key=lambda brick: list(brick)[0][2])  # sort by mean z
     simulate_falling(bricks, False)  # make all fall to bottom
-    return sum(simulate_falling([b for b in bricks if b != curr], not level)
-               for curr in tqdm(bricks))
+    return sum(simulate_falling([b for b in bricks if b != curr], not level) for curr in bricks)
 
 class Brick(frozenset[Point]):
     @staticmethod
