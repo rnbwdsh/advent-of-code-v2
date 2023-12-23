@@ -2,13 +2,10 @@ from functools import cache
 from itertools import product
 from typing import List, Set, Optional
 
-import numpy as np
 import pytest
 from tqdm import tqdm
 
 from point import Point
-
-DOWN = Point(0, 0, -1)
 
 @pytest.mark.data("""1,0,1~1,2,1
 0,0,2~2,0,2
@@ -19,9 +16,8 @@ DOWN = Point(0, 0, -1)
 1,1,8~1,1,9""", 5, 7)
 def test_22(data: List[str], level):
     bricks = [Brick.create(line) for line in data]
-    bricks.sort(key=lambda brick: np.mean([p[2] for p in brick]))  # could be changed after falling
+    bricks.sort(key=lambda brick: list(brick)[0][2])  # sort by mean z
     simulate_falling(bricks, False)  # make all fall to bottom
-    bricks.sort(key=lambda brick: np.mean([p[2] for p in brick]))  # could be changed after falling
     return sum(simulate_falling([b for b in bricks if b != curr], not level)
                for curr in tqdm(bricks))
 
@@ -30,12 +26,12 @@ class Brick(frozenset[Point]):
     def create(line: str):
         start, end = line.split('~')
         start, end = start.split(','), end.split(',')
-        coordinates = product(*[range(int(start[i]), int(end[i])+1) for i in range(3)])
+        coordinates = product(*[range(int(start[i]), int(end[i]) + 1) for i in range(3)])
         return Brick(Point(*c) for c in coordinates)
 
-    @cache
+    @cache  # falling is expensive, so we cache it
     def _fallen(self):
-        b = Brick({p + DOWN for p in self})
+        b = Brick({p + Point(0, 0, -1) for p in self})
         return b if all(p[2] >= 0 for p in b) else None
 
     def fall(self, collision: Set[Point]) -> Optional['Brick']:
@@ -43,7 +39,6 @@ class Brick(frozenset[Point]):
         if not fallen or bool(fallen & collision):
             return None
         return fallen.fall(collision) or fallen  # try to fall further, but return None if you fell 0
-
 
 def simulate_falling(bricks: List[Brick], single_round: bool):
     fallen_ids = set()
