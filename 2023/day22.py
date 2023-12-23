@@ -2,10 +2,13 @@ from functools import cache
 from itertools import product
 from typing import List, Set, Optional
 
+import numpy as np
 import pytest
 from tqdm import tqdm
 
 from point import Point
+
+DOWN = Point(0, 0, -1)
 
 @pytest.mark.data("""1,0,1~1,2,1
 0,0,2~2,0,2
@@ -15,18 +18,12 @@ from point import Point
 0,1,6~2,1,6
 1,1,8~1,1,9""", 5, 7)
 def test_22(data: List[str], level):
-    total = 0
     bricks = [Brick.create(line) for line in data]
-    bricks = sorted(bricks, key=lambda b: -list(b)[0][2])
-    simulate_falling(bricks)
-    points = set().union(*bricks)
-    for curr in tqdm(bricks):
-        disintegrate = curr.can_disintegrate(bricks, points - curr)
-        if disintegrate and not level:
-            total += 1
-        elif level and not disintegrate:
-            total += simulate_falling([b for b in bricks if b != curr])
-    return total
+    bricks.sort(key=lambda brick: np.mean([p[2] for p in brick]))  # could be changed after falling
+    simulate_falling(bricks, False)  # make all fall to bottom
+    bricks.sort(key=lambda brick: np.mean([p[2] for p in brick]))  # could be changed after falling
+    return sum(simulate_falling([b for b in bricks if b != curr], not level)
+               for curr in tqdm(bricks))
 
 class Brick(frozenset[Point]):
     @staticmethod
@@ -37,31 +34,31 @@ class Brick(frozenset[Point]):
         return Brick(Point(*c) for c in coordinates)
 
     @cache
-    def fallen(self):
-        b = Brick({p + Point(0, 0, -1) for p in self})
+    def _fallen(self):
+        b = Brick({p + DOWN for p in self})
         return b if all(p[2] >= 0 for p in b) else None
 
     def fall(self, collision: Set[Point]) -> Optional['Brick']:
-        fallen = self.fallen()
+        fallen = self._fallen()
         if not fallen or bool(fallen & collision):
             return None
-        return fallen
+        return fallen.fall(collision) or fallen  # try to fall further, but return None if you fell 0
 
-    def can_disintegrate(self, other: List["Brick"], collision: Set[Point]):
-        return all(not to_test.fall(collision - to_test)
-                   for to_test in other if self != to_test)
 
-def simulate_falling(bricks: List[Brick]):
+def simulate_falling(bricks: List[Brick], single_round: bool):
     fallen_ids = set()
     points = set().union(*bricks)
-    repeat = True
-    while repeat:
+    while True:
         repeat = False
         for curr_id, curr in enumerate(bricks):
-            if fallen := curr.fall(points - curr):
+            points.difference_update(curr)
+            if fallen := curr.fall(points):
                 bricks[curr_id] = fallen
-                fallen_ids.add(curr_id)  # the actual fallen-object is exchanged, so we have to keep track of ids
-                points.difference_update(curr)  # remove curr
-                points.update(fallen)  # add fallen
+                fallen_ids.add(curr_id)
                 repeat = True
-    return len(fallen_ids)
+                if single_round:
+                    return False
+            points.update(fallen or curr)
+        if not repeat or single_round:
+            break
+    return single_round or len(fallen_ids)
