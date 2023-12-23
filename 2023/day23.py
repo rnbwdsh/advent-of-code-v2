@@ -46,22 +46,18 @@ def test_22(data: np.ndarray, level):
             g.remove_edge(p, target_forbidden)
     if level:
         prune_graph(g, start, target)
+
     return max(nx.path_weight(g, p, weight="weight") for p in tqdm(nx.all_simple_paths(g, start, target)))
 
 def prune_graph(g, start, target):  # all dead ends and all points with exactly two neighbors
-    cont = True
-    while cont:
-        cont = False
-        for n in g.nodes:
-            neigh = list(g.neighbors(n))
-            if len(neigh) == 2:
-                g.add_edge(*neigh, weight=sum(g.get_edge_data(a, n)["weight"] for a in neigh))
-                g.remove_node(n)
-                cont = True
-                break
-            if len(neigh) == 1 and n != start and n != target:
-                g.remove_node(n)
-                cont = True
-                break
-            if len(neigh) == 0:
-                g.remove_node(n)
+    for n in list(g.nodes):
+        if n not in g:
+            continue
+        neigh = list(g.neighbors(n))
+        if len(neigh) == 2:
+            g.add_edge(*neigh, weight=sum(g.get_edge_data(a, n)["weight"] for a in neigh))
+            g.remove_node(n)
+        if len(neigh) == 1 and n != start and n != target:
+            g.remove_node(n)
+        if len(neigh) == 0:
+            g.remove_node(n)
