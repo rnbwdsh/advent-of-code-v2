@@ -46,7 +46,6 @@ def test_22(data: np.ndarray, level):
             g.remove_edge(p, target_forbidden)
     if level:
         prune_graph(g, start, target)
-
     return max(nx.path_weight(g, p, weight="weight") for p in tqdm(nx.all_simple_paths(g, start, target)))
 
 def prune_graph(g, start, target):  # all dead ends and all points with exactly two neighbors
