@@ -70,5 +70,3 @@ U = Point(-1, 0)
 D = Point(1, 0)
 DIR = [L, R, U, D]
 OPPOSITE = {L: R, R: L, U: D, D: U}
-LOOKUP_CHR = {"U": U, "D": D, "L": L, "R": R}
-LOOKUP_INT = {0: R, 1: D, 2: L, 3: U}

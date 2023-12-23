@@ -2,7 +2,10 @@ from typing import List
 
 import pytest
 
-from point import Point, LOOKUP_CHR, LOOKUP_INT, PointList
+from point import Point, PointList, L, R, U, D
+
+LOOKUP_CHR = {"U": U, "D": D, "L": L, "R": R}
+LOOKUP_INT = {0: R, 1: D, 2: L, 3: U}
 
 @pytest.mark.data("""R 6 (#70c710)
 D 5 (#0dc571)
