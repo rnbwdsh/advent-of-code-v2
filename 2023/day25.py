@@ -20,5 +20,5 @@ frs: qnr lhk lsr""", 54, None)
 def test_25(data: List[str], level_a):
     g = nx.Graph((left, r) for line in data for left, right in [line.split(": ")] for r in right.split(" "))
     g.remove_edges_from(nx.minimum_edge_cut(g))
-    cc = list(nx.connected_components(g))
-    return len(cc[0]) * len(cc[1])
+    a, b = nx.connected_components(g)
+    return len(a) * len(b)
