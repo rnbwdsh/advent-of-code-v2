@@ -2,7 +2,6 @@ from typing import List
 
 import networkx as nx
 import pytest
-from matplotlib import pyplot as plt
 
 
 @pytest.mark.data("""jqt: rhn xhk nvd
@@ -24,10 +23,5 @@ def test_25(data: List[str], level_a):
         left, right = line.split(": ")
         for right in right.split(" "):
             g.add_edge(left, right)
-    nx.draw(g, with_labels=True)
-    plt.show()
-    g.remove_edges_from(nx.minimum_edge_cut(g))
-    nx.draw(g, with_labels=True)
-    plt.show()
     cc = list(nx.connected_components(g))
     return len(cc[0]) * len(cc[1])
