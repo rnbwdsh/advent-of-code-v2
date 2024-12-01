@@ -13,16 +13,6 @@ void bubble_sort(int* arr, int cur_line) {
   }
 }
 
-int read_num(char* curr, FILE* f) {
-  int curr_num = 0;
-  unsigned int read_ret = 1;
-  while (*curr != ' ' && *curr != '\n' && read_ret) {
-    curr_num = curr_num * 10 + *curr - '0';
-    read_ret = fread(curr, 1, 1, f);
-  }
-  return curr_num;
-}
-
 int count_in_until(const int i, const int* arr, int curr_line)
 {
   int total = 0;
@@ -42,16 +32,8 @@ void main(int argc, char** argv) {
   unsigned int read_ret = 0;
 
   FILE* f = fopen("01.in", "r");
-  read_ret = fread(&curr, 1, 1, f);
   while (read_ret) {
-    left[curr_line] = read_num(&curr, f);
-    // consume all spaces
-    while (curr == ' ') {
-      fread(&curr, 1, 1, f);
-    }
-    right[curr_line] = read_num(&curr, f);
-    curr_line++;
-    read_ret = fread(&curr, 1, 1, f);
+    read_ret = fscanf(f, "%d   %d\n", &left[curr_line], &right[curr_line]);
   }
   // bubble sort left and right up to curLine
   bubble_sort(left, curr_line);
