@@ -1,9 +1,8 @@
 from collections import defaultdict
 from typing import List
 
-import numpy as np
 import pytest
-import re
+
 
 def sortv(v: List[int], dependencies: dict):
     """ check if the modified sorted list is better """
