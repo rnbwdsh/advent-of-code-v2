@@ -38,18 +38,16 @@ def process_position(args):
 ........#.
 #.........
 ......#..."""), 41, 6)
-def test_05(data: List[str], level):
+def test_06(data: List[str], level):
     data = np.array([list(x) for x in data])
     pos = np.where(data == "^")
     pos = pos[0][0] + pos[1][0] * 1j
     dir = -1
 
     if level:
-        cnt = 0
         tasks = [(data, pos, dir, i, j) for i in range(len(data)) for j in range(len(data[0]))]
         with Pool() as pool:
             results = pool.map(process_position, tasks)
-        cnt = sum(1 for result in results if result == -1)
-        return cnt
+        return sum(1 for result in results if result == -1)
     else:
         return follow_path(data, pos, dir)
