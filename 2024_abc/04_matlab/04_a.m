@@ -3,35 +3,18 @@ fc = fread(fid, '*char')';
 m = strsplit(fc, '\n');
 needle = "XMAS";
 
+char_to_int = containers.Map({'X', 'M', 'A', 'S'}, [1, 2, 3, 4]);
+int_array = cellfun(@(str) cellfun(@(char) char_to_int(char), num2cell(str)), m, 'UniformOutput', false);
+int_matrix = cell2mat(int_array');
+kernel = [1, 8, 64, 256];
+needle_value = 1*char_to_int(needle(1)) + 8*char_to_int(needle(2)) + 64*char_to_int(needle(3)) + 256*char_to_int(needle(4));
+
 total = 0;
-im = length(m);
-jm = length(m{1});
-
-% Boolean findDiagonal (char[][] m, int i, int j, int di, int dj, String needle, int im, int jm)
-function found = findDiagonal(m, i, j, di, dj, needle, im, jm)
-    found = true;
-
-    for k = 0:length(needle)-1
-        ia = i + di * k;
-        ja = j + dj * k;
-
-        if ia <= 0 || ja <= 0 || ia > im || ja > jm || m{ia}(ja) ~= needle(k+1)
-            found = false;
-            break;
-        end
-    end
+for i = 1:4
+    result = conv2(int_matrix, kernel, "valid");
+    total = total + sum(result(:) == needle_value);
+    result = conv2(int_matrix, diag(kernel), "valid");
+    total = total + sum(result(:) == needle_value);
+    int_matrix = rot90(int_matrix);
 end
-
-for i = 1:im
-    for j = 1:jm
-        for di = -1:1
-            for dj = -1:1
-                if findDiagonal(m, i, j, di, dj, needle, im, jm)
-                    total = total + 1;
-                end
-            end
-        end
-    end
-end
-
-total
+disp(total)
