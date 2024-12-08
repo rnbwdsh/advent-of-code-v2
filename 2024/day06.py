@@ -1,10 +1,12 @@
 from multiprocessing import Pool
 from typing import List
 
+import numba
 import numpy as np
 import pytest
 
 
+@numba.jit
 def follow_path(data: np.array, pos: complex, dir: complex) -> int:
     seen = set()
     seen_dir = set()
@@ -38,8 +40,7 @@ def process_position(args):
 ........#.
 #.........
 ......#..."""), 41, 6)
-def test_06(data: List[str], level):
-    data = np.array([list(x) for x in data])
+def test_06(data: np.array, level):
     pos = np.where(data == "^")
     pos = pos[0][0] + pos[1][0] * 1j
     dir = -1
