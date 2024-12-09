@@ -27,5 +27,6 @@ TYPE_PARSER = {
     str: lambda d: d,
     None: lambda d: d.split("\n"),
     np.ndarray: parse_array,
+    np.array: parse_array,
     int: int,
 }
