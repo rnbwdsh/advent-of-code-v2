@@ -1,3 +1,5 @@
+from typing import List
+
 import numba
 import numpy as np
 import pytest
@@ -6,7 +8,7 @@ FREE = -1
 BUF_SIZE = 100_000
 
 @numba.jit
-def defrag1(a, lpos, pos):
+def defrag1(a: np.array, lpos: int, pos: int):
     while pos >= lpos:
         # "".join(map(str, a)).replace("-1", ".")
         while a[pos] == FREE:
@@ -23,7 +25,7 @@ def defrag1(a, lpos, pos):
         lpos += 1
 
 @numba.jit
-def defrag2(a, curr, file_size, file_start):
+def defrag2(a: int, curr: int, file_size: List[int], file_start: List[int]):
     for file_id in range(curr // 2, 0, -1):
         start = file_start[file_id]
         size = file_size[file_id]
@@ -55,7 +57,7 @@ def checksum(a):
 @pytest.mark.data(("""2333133121414131402"""), 1928, 2858)
 def test_09(data: str, level):
     # read logic
-    a = np.array([FREE for _ in range(BUF_SIZE)])
+    a = np.array([FREE for _ in range(BUF_SIZE)], dtype=np.int16)
     curr = 0
     pos = 0
     file_size = []

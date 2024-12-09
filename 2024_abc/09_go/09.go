@@ -1,3 +1,4 @@
+// compile + run with go build -gcflags="-B" -o 09 09.go; time ./09
 package main
 
 import (
