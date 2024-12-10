@@ -5,30 +5,23 @@ import "core:os"
 import "core:strings"
 
 Direction :: struct {
-    dx: int,
-    dy: int,
+    dx: int, dy: int,
 }
 
 // Define the four possible directions
-directions := [4]Direction{
-    {dx = 0, dy = -1}, // Up
-    {dx = -1, dy = 0}, // Left
-    {dx = 1, dy = 0},  // Right
-    {dx = 0, dy = 1},  // Down
-}
+directions := [4]Direction{ { dx = 0, dy = -1 }, { dx = -1, dy = 0 }, { dx = 1, dy = 0 }, { dx = 0, dy = 1 }, }
 
 trace :: proc(ss: []string, i: int, j: int, prev: u8, level: bool, visited: ^map[[2]int]bool) -> int {
     if i < 0 || i >= len(ss) || j < 0 || j >= len(ss[i]) || ss[i][j] != prev + 1 && prev != 42 {
         return 0
     }
-    val := ss[i][j]
-    if val == '9' {
-        visited[[2]int{i, j}] = true
+    if ss[i][j] == '9' {
+        visited[[2]int{ i, j }] = true
         return 1
     }
     total := 0
     for dir in directions {
-        total += trace(ss, i + dir.dx, j + dir.dy, val, level, visited)
+        total += trace(ss, i + dir.dx, j + dir.dy, ss[i][j], level, visited)
     }
     return total
 }
@@ -44,16 +37,12 @@ run_level :: proc(level: bool) {
     } else {
         total := 0
         ss := strings.split(string(data), "\n")
-        for i in 0..<len(ss) {
-            for j in 0..<len(ss[i]) {
+        for i in 0 ..< len(ss) {
+            for j in 0 ..< len(ss[i]) {
                 if ss[i][j] == '0' {
                     visited := make(map[[2]int]bool)
                     res := trace(ss, i, j, 42, level, &visited)
-                    if level {
-                        total += res
-                    } else {
-                        total += len(visited)
-                    }
+                    total += res if level else len(visited)
                 }
             }
         }
