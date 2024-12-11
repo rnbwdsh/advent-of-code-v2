@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "GA/qEVXfNbHKx9zPF1NG+qYX4OPrccmR8cgUrXo3ZkmFryQvGP9zmfdPKWZaF12Xb0Wb/+KMplj9Ou98tpgF5g==",
+  "success": true,
+  "projectFilePath": "/home/m/IdeaProjects/advent-of-code-v2/2024_abc/11_fs/11_fs.fsproj",
+  "expectedPackageFiles": [
+    "/home/m/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512",
+    "/home/m/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.10/microsoft.aspnetcore.app.ref.8.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}
