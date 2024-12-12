@@ -20,6 +20,7 @@ def connected_copy(data: np.array, x: int, y: int):
                 if data[nx, ny] == letter:
                     to_visit.append((nx, ny))
                     data[nx, ny] = " "
+    # prune all the 0 lines and columns
     return dc
 
 
@@ -83,6 +84,6 @@ def test_12(data: np.array, level):
             if data[i, j] == " ":
                 continue
             cc = connected_copy(data, i, j)
-            area = int(np.sum(cc == cc[i, j]))
+            area = int(np.sum(cc))
             total += area * (nr_sides(cc) if level else perimeter(cc))
     return total
