@@ -32,8 +32,10 @@ def test_08(data: np.array, level):
     mul = 'n' if level else 2
     num_tab = ', s' if level else ''
 
-    return cursor.execute(f"""SELECT COUNT() FROM ({gen100}
+    r = cursor.execute(f"""SELECT COUNT() FROM ({gen100}
             SELECT DISTINCT (l1.x + (l2.x - l1.x) * {mul}) as a, (l1.y + (l2.y - l1.y) * {mul}) as b
             FROM lookup l1, lookup l2{num_tab}
             WHERE l1.val = l2.val AND l1.ROWID != l2.ROWID
             AND a BETWEEN 0 AND ?-1 AND b BETWEEN 0 AND ?-1)""", data.shape).fetchone()[0]
+    print(r)
+    return r

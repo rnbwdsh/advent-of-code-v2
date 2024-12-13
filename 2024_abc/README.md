@@ -1,18 +1,5 @@
 # Advent of Languages 2024
 
-💔 🖤 💛 🧡 💜 💙 💚 ❤️
-
-Solutions for the [AoC 2024](https://adventofcode.com/2024) puzzles, written in 25 different programming languages.
-
-- 💔 **Assembly** Languages
-- 🖤 **Shell Scripting** Languages
-- 💛 **Database** Languages
-- 🧡 **Mathematical** Languages
-- 💜 **Functional** Languages
-- 💙 **System Programming** Languages
-- 💚 **Web Application** Languages
-- ❤️ **General-Purpose** Languages
-
 ## Solutions
 
 | Day | Puzzle                                                       | Reference                    | Language | Solution                                                 | Skill | Rating     |
@@ -24,7 +11,7 @@ Solutions for the [AoC 2024](https://adventofcode.com/2024) puzzles, written in 
 |   5 | [Print Queue](https://adventofcode.com/2024/day/5)           | [day05.py](../2024/day05.py) | Java     | [05.java](05_java/05.java)                               | ⭐⭐⭐⭐⭐ | ❤️❤️❤️🖤🖤 |
 |   6 | [Guard Gallivant](https://adventofcode.com/2024/day/6)       | [day06.py](../2024/day06.py) | C        | [06.c](06_c/06.c)                                        | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️❤️ |
 |   7 | [Bridge Repair](https://adventofcode.com/2024/day/7)         | [day07.py](../2024/day07.py) | Lisp     | [07.lisp](07_lisp/07.lisp)                               | ⭐⭐⚫⚫⚫ | ❤️❤️🖤🖤🖤 |
-|   8 | [Resonant Collinearity](https://adventofcode.com/2024/day/8) | [day08.py](../2024/day08.py) | SQLite   | [08.sqlite.py](08_sqlite/08.sqlite.py)                   | ⭐⭐⭐⭐⭐ | ❤️❤️❤️❤️❤️ |
+|   8 | [Resonant Collinearity](https://adventofcode.com/2024/day/8) | [day08.py](../2024/day08.py) | SQLite   | [08.sqlite.py](08_sqlite/2024/08.sqlite.py)                   | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️❤️ |
 |   9 | [Disk Fragmenter](https://adventofcode.com/2024/day/9)       | [day09.py](../2024/day09.py) | Go       | [09.go](09_go/09.go)                                     | ⭐⭐⭐⚫⚫ | ❤️❤️❤️❤️❤️ |
 |  10 | [Hoof It](https://adventofcode.com/2024/day/10)              | [day10.py](../2024/day10.py) | Odin     | [10.odin](10_odin/10.odin)                               | ⭐⚫⚫⚫⚫ | ❤️❤️❤️🖤🖤 |
 |  11 | [Plutonian Pebbles](https://adventofcode.com/2024/day/11)    | [day11.py](../2024/day11.py) | F#       | [Program.fs](11_fs/Program.fs)                           | ⭐⚫⚫⚫⚫ | ❤️❤️🖤🖤🖤 |
@@ -56,4 +43,117 @@ Solutions for the [AoC 2024](https://adventofcode.com/2024) puzzles, written in 
 
 ## License / Original
 
-This page is heavly inspired by [blu3r4y advent of languages 2020](https://github.com/blu3r4y/AdventOfLanguages2020) and is also licensed under MIT.
+This page is heavly inspired by [blu3r4y advent of languages 2020](https://github.com/blu3r4y/AdventOfLanguages2020) and
+is also licensed under MIT.
+
+## How to Run the Levels
+
+These script boxes should have a run button in IntelliJ IDEA.
+
+#### Day 01 - Assembly
+```bash
+cd 01_asm
+# Part A
+nasm -f elf64 -g -F dwarf -o 01_a.o 01_a.asm
+gcc -no-pie -o 01_a 01_a.o -lc -g
+./01_a
+
+# Part B
+nasm -f elf64 -g -F dwarf -o 01_b.o 01_b.asm
+gcc -no-pie -o 01_b 01_b.o -lc -g
+./01_b
+rm 01_a 01_a.o 01_b 01_b.o
+cd ..
+
+```
+
+#### Day 02 - Bash
+```bash
+cd 02_bash
+sh 02_a.sh
+cd ..
+```
+
+#### Day 03 - AWK
+```bash
+cd 03_awk
+awk -v RS= -f 03_a.awk 03.in
+awk -v RS= -f 03_b.awk 03.in
+cd ..
+```
+
+#### Day 04 - MATLAB (Octave)
+```bash
+cd 04_matlab
+octave 04_a.m
+octave 04_b.m
+cd ..
+```
+
+#### Day 05 - Java
+```bash
+cd 05_java
+java 05.java
+cd ..
+```
+
+#### Day 06 - C
+```bash
+cd 06_c
+gcc -o 06 06.c
+./06
+rm 06
+cd ..
+```
+
+#### Day 07 - Lisp (SBCL)
+```bash
+cd 07_lisp
+sbcl --script 07.lisp
+cd ..
+```
+
+#### Day 08 - SQLite
+```bash
+cd 08_sqlite
+pytest 2024/08sqlite.py
+cd ..
+```
+
+#### Day 09 - Go
+```bash
+cd 09_go
+go run 09.go
+cd ..
+```
+
+#### Day 10 - Odin
+```bash
+cd 10_odin
+odin run 10.odin -file
+cd ..
+```
+
+#### Day 11 - F#
+```bash
+cd 11_fs
+dotnet run --project 11_fs.fsproj
+cd ..
+```
+
+#### Day 12 - Fortran
+```bash
+cd 12_fortran
+gfortran -o 12 12.f90
+./12
+rm 12
+cd ..
+```
+
+#### Day 13 - Z3
+```bash
+cd 13_z3
+z3 13.z3
+pytest 2024/day13.py
+cd ..
+```
