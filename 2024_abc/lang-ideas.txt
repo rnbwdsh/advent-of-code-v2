@@ -1,6 +1,0 @@
-ez lang: js, py, c++, nim
-new languages: mojo, crystal, julia, zig, odin, haxe, lua, vlang, j, k
-classic interpreter languages: perl, ruby, php, rust
-not javas: scala, groovy, kotlin, C#
-not c: d, c++
-new old languages: fortran, delphi, cobol
