@@ -12,6 +12,13 @@ def simulate(robots: List[Tuple[complex, complex]], wrap: complex, time: int):
         area[int(z.imag % wrap.imag), int(z.real % wrap.real)] += 1
     return area
 
+def simulate_fast(robot_arr: np.array, wrap: complex, time: int):
+    """ apply the same formula as above but vectorized in numpy and return just the var(x) + var(y) """
+    target = robot_arr[:, :2] + robot_arr[:, 2:] * time
+    target[:, 0] %= wrap.imag
+    target[:, 1] %= wrap.real
+    return np.sum(np.var(target, axis=0))
+
 @pytest.mark.data("""p=0,4 v=3,-3
 p=6,3 v=-1,-3
 p=10,3 v=-1,2
@@ -32,7 +39,9 @@ def test_14(data: List[str], level):
         px, py, vx, vy = map(int, match.groups())
         robots.append((complex(px, py), complex(vx, vy)))
     if level:
-        return np.argmax([np.max(np.sum(simulate(robots, wrap_around, i) > 0, axis=1)) for i in range(10_000)])
+        robot_arr = np.array([[p.imag, p.real, v.imag, v.real] for p, v in robots])
+        return np.argmin([simulate_fast(robot_arr, wrap_around, i) for i in range(10_000)])
+        # return np.argmax([np.max(np.sum(simulate(robots, wrap_around, i) > 0, axis=1)) for i in range(10_000)])
     else:
         grid = simulate(robots, wrap_around, 100)
         xm, ym = int(wrap_around.real // 2), int(wrap_around.imag // 2)
