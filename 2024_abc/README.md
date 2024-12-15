@@ -18,8 +18,8 @@
 |  12 | [Garden Groups](https://adventofcode.com/2024/day/12)        | [day12.py](../2024/day12.py) | Fortran  | [12.f90](12_fortran/12.f90)                              | ⭐⚫⚫⚫⚫ | ❤️❤️❤️❤️🖤 |
 |  13 | [Claw Contraption](https://adventofcode.com/2024/day/13)     | [day13.py](../2024/day13.py) | Z3       | [13.z3](13_z3/13.z3)                                     | ⭐⭐⭐⚫⚫ | ❤️❤️❤️❤️❤️ |
 |  14 | [Restroom Redoubt](https://adventofcode.com/2024/day/14)     | [day14.py](../2024/day14.py) | Julia    | [14.julia](14_julia/14.jl)                               | ⭐⭐⭐⚫⚫ | ❤️❤️❤️🖤🖤 |
-|  15 | ???                                                          | [day15.py](../2024/day15.py) | Scala?   | [day15.scala](15/day15.scala)                            | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
-|  16 | ???                                                          | [day16.py](../2024/day16.py) | Julia?   | [day16.j](16/day16.jl)                                   | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
+ |  15 | [Warehouse Woes](https://adventofcode.com/2024/day/15)       | [day15.py](../2024/day15.py) | Scala    | [Main.scala](15/Main.scala)                              | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️❤️ |
+|  16 | ???                                                          | [day16.py](../2024/day16.py) | J?       | [day16.j](16/day16.j)                                    | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
 |  17 | ???                                                          | [day17.py](../2024/day17.py) | Vlang?   | [day17.v](17/day17.v)                                    | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
 |  18 | ???                                                          | [day18.py](../2024/day18.py) | Lua?     | [day18.lua](18/day18.lua)                                | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
 |  19 | ???                                                          | [day19.py](../2024/day19.py) | Haxe?    | [day19.hx](19/day19.hx)                                  | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
@@ -32,14 +32,14 @@
 
 ## Ideas for languages that I haven't used yet
 
-| Category                      | Languages                                        |
-|:------------------------------|:-------------------------------------------------|
-| Easy Languages                | JavaScript, Python, C++, Nim                     |
-| New Languages                 | Mojo, Crystal, Zig, Odin, Haxe, Lua, Vlang, J, K |
-| Classic Interpreter Languages | Perl, Ruby, PHP, Rust                            |
-| Not Javas                     | Scala, Groovy, Kotlin, C#                        |
-| Not C                         | D, C++                                           |
-| New Old Languages             | Delphi, COBOL                                    |
+| Category                      | Languages                                  |
+|:------------------------------|:-------------------------------------------|
+| Easy Languages                | JavaScript, Python, C++, Nim               |
+| New Languages                 | Mojo, Crystal, Zig, Haxe, Lua, Vlang, J, K |
+| Classic Interpreter Languages | Perl, Ruby, PHP, Rust                      |
+| Not Javas                     | Scala, Groovy, Kotlin, C#                  |
+| Not C                         | D, C++                                     |
+| New Old Languages             | Delphi, COBOL                              |
 
 ## License / Original
 
@@ -176,5 +176,15 @@ cd ..
 ```bash
 cd 14_julia
 time julia 14.jl
+cd ..
+```
+
+### Day 15 - Scala
+
+```bash
+cd 15_scala
+scalac Main.scala
+time scala Main
+rm Main.class Main$.class Solver.class
 cd ..
 ```
