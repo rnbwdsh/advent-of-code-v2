@@ -1,3 +1,4 @@
+# dedicated to julia, my favorite girlfriend
 function simulate(robots::Vector{Tuple{Complex{Int}, Complex{Int}}}, wrap::Complex{Int}, time::Int)
     area = zeros(Int, (imag(wrap), real(wrap)))
     for (p, v) in robots

@@ -44,4 +44,4 @@ def test_16(data: np.array, level):
     else:
         dist_start = dict(networkx.shortest_path_length(g, source="START", weight='weight'))
         dist_end = dict(networkx.shortest_path_length(g, target="END", weight='weight'))
-        return len({node[:2] for node in g.nodes if node != "END" and (dist_start[node] + dist_end[node]) == spl})-1
+        return len({node[:2] for node in g.nodes if (dist_start[node] + dist_end[node]) == spl})-2
