@@ -18,9 +18,9 @@
 |  12 | [Garden Groups](https://adventofcode.com/2024/day/12)        | [day12.py](../2024/day12.py) | Fortran  | [12.f90](12_fortran/12.f90)                              | ⭐⚫⚫⚫⚫ | ❤️❤️❤️❤️🖤 |
 |  13 | [Claw Contraption](https://adventofcode.com/2024/day/13)     | [day13.py](../2024/day13.py) | Z3       | [13.z3](13_z3/13.z3)                                     | ⭐⭐⭐⚫⚫ | ❤️❤️❤️❤️❤️ |
 |  14 | [Restroom Redoubt](https://adventofcode.com/2024/day/14)     | [day14.py](../2024/day14.py) | Julia    | [14.julia](14_julia/14.jl)                               | ⭐⭐⭐⚫⚫ | ❤️❤️❤️🖤🖤 |
- |  15 | [Warehouse Woes](https://adventofcode.com/2024/day/15)       | [day15.py](../2024/day15.py) | Scala    | [Main.scala](15/Main.scala)                              | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️❤️ |
-|  16 | ???                                                          | [day16.py](../2024/day16.py) | J?       | [day16.j](16/day16.j)                                    | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
-|  17 | ???                                                          | [day17.py](../2024/day17.py) | Vlang?   | [day17.v](17/day17.v)                                    | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
+|  15 | [Warehouse Woes](https://adventofcode.com/2024/day/15)       | [day15.py](../2024/day15.py) | Scala    | [Main.scala](15/Main.scala)                              | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️❤️ |
+|  16 | [Reindeer Maze](https://adventofcode.com/2024/day/16)        | [day16.py](../2024/day16.py) | Vlang    | [16.v](16/16.v)                                          | ⭐⚫⚫⚫⚫ | ❤️❤️❤️❤️❤️ |
+|  17 | ???                                                          | [day17.py](../2024/day17.py) | J?       | [day17.v](17/day17.v)                                    | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
 |  18 | ???                                                          | [day18.py](../2024/day18.py) | Lua?     | [day18.lua](18/day18.lua)                                | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
 |  19 | ???                                                          | [day19.py](../2024/day19.py) | Haxe?    | [day19.hx](19/day19.hx)                                  | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
 |  20 | ???                                                          | [day20.py](../2024/day20.py) | Zig?     | [day20.zig](20/day20.zig)                                | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |
@@ -186,5 +186,13 @@ cd 15_scala
 scalac Main.scala
 time scala Main
 rm Main.class Main$.class Solver.class
+cd ..
+```
+
+### Day 16 - Vlang
+
+```bash
+cd 16_vlang
+v run 16.v
 cd ..
 ```
