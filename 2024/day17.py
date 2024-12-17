@@ -4,13 +4,6 @@ from typing import List
 import pytest
 from z3 import z3
 
-opcode_name = ["adv", "bxl", "bst", "jnz", "bxc", "out", "bdv", "cdv"]
-
-def o(i, zero_is_empty=False):
-    if zero_is_empty and not i:
-        return ""
-    return oct(i)[2:]
-
 @pytest.mark.data("""Register A: 729
 Register B: 0
 Register C: 0
@@ -59,11 +52,7 @@ def simulate(program: List[int], a: int, b=0, c=0, jmp_cnt=None):
                     if jmp_cnt < 0:
                         return out
                     jmp_cnt -= 1
-                    pc = literal
-                    continue
-                if jmp_cnt is not None and jmp_cnt == 0:
-                    return out
-                if a != 0:
+                if jmp_cnt is not None or a != 0:
                     pc = literal
                     continue
             case 4:
