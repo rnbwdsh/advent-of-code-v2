@@ -24,14 +24,10 @@ int program(uint64_t ao, bool print = false)
         if (print) {
             std::cout << (b % 8) << ",";
             if (a == 0)
-            {
                 return 0;
-            }
-
         }
-        else if ((b & 7) != expected_values[i]) {
+        else if ((b & 7) != expected_values[i])
             return i;  // Return the index (1-based) if the condition fails
-        }
     }
     return 16;
 }
@@ -53,7 +49,7 @@ void recursiveSearch(uint64_t a, int lastOutput, int depth = 0) {
 int main() {
     program(46187030ULL, true);
     std::cout << std::endl;
-    recursiveSearch(0, -1, 0);
+    recursiveSearch(0, 0, 0);
     std::cout << std::oct << bestA << std::endl;
     return 0;
 }

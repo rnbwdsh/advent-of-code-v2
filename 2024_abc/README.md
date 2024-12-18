@@ -63,34 +63,28 @@ nasm -f elf64 -g -F dwarf -o 01_b.o 01_b.asm
 gcc -no-pie -o 01_b 01_b.o -lc -g
 ./01_b
 rm 01_a 01_a.o 01_b 01_b.o
-cd ..
-
 ```
 #### Day 02 - Bash
 ```bash
 cd 02_bash
 sh 02_a.sh
-cd ..
 ```
 #### Day 03 - AWK
 ```bash
 cd 03_awk
 awk -v RS= -f 03_a.awk 03.in
 awk -v RS= -f 03_b.awk 03.in
-cd ..
 ```
 #### Day 04 - MATLAB (Octave)
 ```bash
 cd 04_matlab
 octave 04_a.m
 octave 04_b.m
-cd ..
 ```
 #### Day 05 - Java
 ```bash
 cd 05_java
 java 05.java
-cd ..
 ```
 #### Day 06 - C
 ```bash
@@ -98,37 +92,31 @@ cd 06_c
 gcc -o 06 06.c
 ./06
 rm 06
-cd ..
 ```
 #### Day 07 - Lisp (SBCL)
 ```bash
 cd 07_lisp
 sbcl --script 07.lisp
-cd ..
 ```
 #### Day 08 - SQLite
 ```bash
 cd 08_sqlite
 pytest 2024/08sqlite.py
-cd ..
 ```
 #### Day 09 - Go
 ```bash
 cd 09_go
 go run 09.go
-cd ..
 ```
 #### Day 10 - Odin
 ```bash
 cd 10_odin
 odin run 10.odin -file
-cd ..
 ```
 #### Day 11 - F#
 ```bash
 cd 11_fs
 dotnet run --project 11_fs.fsproj
-cd ..
 ```
 #### Day 12 - Fortran
 ```bash
@@ -136,20 +124,17 @@ cd 12_fortran
 gfortran -o 12 12.f90
 ./12
 rm 12
-cd ..
 ```
 #### Day 13 - Z3
 ```bash
 cd 13_z3
 z3 13.z3
 pytest 2024/day13.py
-cd ..
 ```
 ### Day 14 - Julia
 ```bash
 cd 14_julia
 time julia 14.jl
-cd ..
 ```
 ### Day 15 - Scala
 ```bash
@@ -157,25 +142,21 @@ cd 15_scala
 scalac Main.scala
 time scala Main
 rm Main.class Main$.class Solver.class
-cd ..
 ```
 ### Day 16 - Vlang
 ```bash
 cd 16_vlang
 v run 16.v
-cd ..
 ```
 ### Day 17 - C++
 ```bash
 cd 17_c++
-g++ -o 17 17.cpp
+g++ -o 17 -O3 17.cpp
 ./17
 rm 17
-cd ..
 ```
 ### Day 18 - Ruby
 ```bash
 cd 18_ruby
 ruby 18.rb
-cd ..
 ```
