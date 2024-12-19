@@ -17,12 +17,12 @@
 |  11 | [Plutonian Pebbles](https://adventofcode.com/2024/day/11)      | [day11.py](../2024/day11.py) | F#       | 2005 | [Program.fs](11_fs/Program.fs)                           | ⭐⚫⚫⚫⚫ | ❤️❤️🖤🖤🖤 | Microsoft Scala, but "if then" and weird map pipe                                    |
 |  12 | [Garden Groups](https://adventofcode.com/2024/day/12)          | [day12.py](../2024/day12.py) | Fortran  | 1957 | [12.f90](12_fortran/12.f90)                              | ⭐⚫⚫⚫⚫ | ❤️❤️❤️❤️🖤 | Hyper verbose, everything annotated, C++ with native vectors                         |
 |  13 | [Claw Contraption](https://adventofcode.com/2024/day/13)       | [day13.py](../2024/day13.py) | Z3       | 2007 | [13.z3](13_z3/13.z3)                                     | ⭐⭐⭐⚫⚫ | ❤️❤️❤️❤️❤️ | Best SAT solver out there                                                            |
-|  14 | [Restroom Redoubt](https://adventofcode.com/2024/day/14)       | [day14.py](../2024/day14.py) | Julia    | 2012 | [14.julia](14_julia/14.jl)                               | ⭐⭐⭐⚫⚫ | ❤️❤️❤️🖤🖤 | Origin 1, faster python with weird array access                                      |                       
+|  14 | [Restroom Redoubt](https://adventofcode.com/2024/day/14)       | [day14.py](../2024/day14.py) | Julia    | 2012 | [14.julia](14_julia/14.jl)                               | ⭐⭐⚫⚫⚫ | ❤️❤️❤️🖤🖤 | Origin 1, faster python with weird array access                                      |                       
 |  15 | [Warehouse Woes](https://adventofcode.com/2024/day/15)         | [day15.py](../2024/day15.py) | Scala    | 2003 | [Main.scala](15_scala/Main.scala)                        | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️❤️ | Better, functional java                                                              |
 |  16 | [Reindeer Maze](https://adventofcode.com/2024/day/16)          | [day16.py](../2024/day16.py) | Vlang    | 2019 | [16.v](16_vlang/16.v)                                    | ⭐⚫⚫⚫⚫ | ❤️❤️❤️❤️❤️ | Fast + great syntax, strong competition for nim, more safety                         |
-|  17 | [Chronospatial Computer](https://adventofcode.com/2024/day/17) | [day17.py](../2024/day17.py) | C++      | 1983 | [day17.cpp](17_c++/17.cpp)                               | ⭐⭐⚫⚫⚫ | ❤️❤️❤️❤️❤️ | Good language for a simple brute forcer                                              |
-|  18 | [RAM Run](https://adventofcode.com/2024/day/18)                | [day18.py](../2024/day18.py) | Ruby     | 1993 | [day18.lua](18_ruby/18.rb)                               | ⭐⭐⭐⚫⚫ | ❤️❤️❤️❤️🖤 | I liked the [ruby graph lib](https://github.com/monora/rgl) and most of rubys syntax |
-|  19 | [???](https://adventofcode.com/2024/day/19)                    | [day19.py](../2024/day19.py) | Haxe?    | 2005 | [day19.hx](19/day19.hx)                                  | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |                                                                                      |
+|  17 | [Chronospatial Computer](https://adventofcode.com/2024/day/17) | [day17.py](../2024/day17.py) | C++      | 1983 | [day17.cpp](17_c++/17.cpp)                               | ⭐⭐⭐⚫⚫ | ❤️❤️❤️❤️❤️ | Good language for a simple brute forcer                                              |
+|  18 | [RAM Run](https://adventofcode.com/2024/day/18)                | [day18.py](../2024/day18.py) | Ruby     | 1993 | [day18.lua](18_ruby/18.rb)                               | ⭐⭐⚫⚫⚫ | ❤️❤️❤️❤️🖤 | I liked the [ruby graph lib](https://github.com/monora/rgl) and most of rubys syntax |
+|  19 | [Linen Layout](https://adventofcode.com/2024/day/19)           | [day19.py](../2024/day19.py) | Rust     | 2006 | [19.rs](19_rust/19.rs)                                   | ⭐⭐⭐⚫⚫ | ❤️❤️❤️❤️🖤 | Kotlin levels of convenient/concise, C-Levels of fast, sometimes weird safety        |
 |  20 | [[???](https://adventofcode.com/2024/day/20)                   | [day20.py](../2024/day20.py) | Zig?     | 2016 | [day20.zig](20/day20.zig)                                | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |                                                                                      |
 |  21 | [[???](https://adventofcode.com/2024/day/21)                   | [day21.py](../2024/day21.py) | Rust?    | 2010 | [day21.jl](21/day21.rs)                                  | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |                                                                                      |
 |  22 | [[???](https://adventofcode.com/2024/day/22)                   | [day22.py](../2024/day22.py) | Js?      | 1995 | [day22.js](22/day22.js)                                  | ⭐⭐⭐⭐⚫ | ❤️❤️❤️❤️🖤 |                                                                                      |
@@ -37,7 +37,7 @@
 | Easy Languages                | JavaScript, Python, Nim             |
 | New Languages                 | Mojo, Crystal, Zig, Haxe, Lua, J, K |
 | Classic Interpreter Languages | Perl, PHP, Rust                     |
-| Not Javas                     | Scala, Groovy, Kotlin, C#           |
+| Not Javas                     | Groovy, Kotlin, C#                  |
 | Not C                         | D                                   |
 | New Old Languages             | Delphi, COBOL                       |
 
@@ -51,6 +51,7 @@ is also licensed under MIT.
 These script boxes should have a run button in IntelliJ IDEA. All the languages are installable via pacman/aur.
 
 #### Day 01 - Assembly
+
 ```bash
 cd 01_asm
 # Part A
@@ -64,99 +65,142 @@ gcc -no-pie -o 01_b 01_b.o -lc -g
 ./01_b
 rm 01_a 01_a.o 01_b 01_b.o
 ```
+
 #### Day 02 - Bash
+
 ```bash
 cd 02_bash
 sh 02_a.sh
 ```
+
 #### Day 03 - AWK
+
 ```bash
 cd 03_awk
 awk -v RS= -f 03_a.awk 03.in
 awk -v RS= -f 03_b.awk 03.in
 ```
+
 #### Day 04 - MATLAB (Octave)
+
 ```bash
 cd 04_matlab
 octave 04_a.m
 octave 04_b.m
 ```
+
 #### Day 05 - Java
+
 ```bash
 cd 05_java
 java 05.java
 ```
+
 #### Day 06 - C
+
 ```bash
 cd 06_c
 gcc -o 06 06.c
 ./06
 rm 06
 ```
+
 #### Day 07 - Lisp (SBCL)
+
 ```bash
 cd 07_lisp
 sbcl --script 07.lisp
 ```
+
 #### Day 08 - SQLite
+
 ```bash
 cd 08_sqlite
 pytest 2024/08sqlite.py
 ```
+
 #### Day 09 - Go
+
 ```bash
 cd 09_go
 go run 09.go
 ```
+
 #### Day 10 - Odin
+
 ```bash
 cd 10_odin
 odin run 10.odin -file
 ```
+
 #### Day 11 - F#
+
 ```bash
 cd 11_fs
 dotnet run --project 11_fs.fsproj
 ```
+
 #### Day 12 - Fortran
+
 ```bash
 cd 12_fortran
 gfortran -o 12 12.f90
 ./12
 rm 12
 ```
+
 #### Day 13 - Z3
+
 ```bash
 cd 13_z3
 z3 13.z3
 pytest 2024/day13.py
 ```
+
 ### Day 14 - Julia
+
 ```bash
 cd 14_julia
-time julia 14.jl
+julia 14.jl
 ```
+
 ### Day 15 - Scala
+
 ```bash
 cd 15_scala
 scalac Main.scala
-time scala Main
+scala Main
 rm Main.class Main$.class Solver.class
 ```
+
 ### Day 16 - Vlang
+
 ```bash
 cd 16_vlang
 v run 16.v
 ```
+
 ### Day 17 - C++
+
 ```bash
 cd 17_c++
 g++ -o 17 -O3 17.cpp
 ./17
 rm 17
 ```
+
 ### Day 18 - Ruby
+
 ```bash
 cd 18_ruby
 ruby 18.rb
+```
+
+### Day 19 - Rust
+
+```bash
+cd 19_rust
+rustc 19.rs
+./19    
+rm 19
 ```
