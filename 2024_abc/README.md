@@ -54,6 +54,7 @@ These script boxes should have a run button in IntelliJ IDEA. All the languages 
 
 ```bash
 cd 01_asm
+aocd 1 2024 > 01.in
 # Part A
 nasm -f elf64 -g -F dwarf -o 01_a.o 01_a.asm
 gcc -no-pie -o 01_a 01_a.o -lc -g
@@ -70,6 +71,7 @@ rm 01_a 01_a.o 01_b 01_b.o
 
 ```bash
 cd 02_bash
+aocd 2 2024 > 02.in
 sh 02_a.sh
 ```
 
@@ -77,6 +79,7 @@ sh 02_a.sh
 
 ```bash
 cd 03_awk
+aocd 3 2024 > 03.in
 awk -v RS= -f 03_a.awk 03.in
 awk -v RS= -f 03_b.awk 03.in
 ```
@@ -85,6 +88,7 @@ awk -v RS= -f 03_b.awk 03.in
 
 ```bash
 cd 04_matlab
+aocd 4 2024 > 04.in
 octave 04_a.m
 octave 04_b.m
 ```
@@ -93,6 +97,7 @@ octave 04_b.m
 
 ```bash
 cd 05_java
+aocd 5 2024 > 05.in
 java 05.java
 ```
 
@@ -100,6 +105,7 @@ java 05.java
 
 ```bash
 cd 06_c
+aocd 6 2024 > 06.in
 gcc -o 06 06.c
 ./06
 rm 06
@@ -109,6 +115,7 @@ rm 06
 
 ```bash
 cd 07_lisp
+aocd 7 2024 > 07.in
 sbcl --script 07.lisp
 ```
 
@@ -123,6 +130,7 @@ pytest 2024/08sqlite.py
 
 ```bash
 cd 09_go
+aocd 9 2024 > 09.in
 go run 09.go
 ```
 
@@ -130,6 +138,7 @@ go run 09.go
 
 ```bash
 cd 10_odin
+aocd 10 2024 > 10.in
 odin run 10.odin -file
 ```
 
@@ -144,6 +153,7 @@ dotnet run --project 11_fs.fsproj
 
 ```bash
 cd 12_fortran
+aocd 12 2024 > 12.in
 gfortran -o 12 12.f90
 ./12
 rm 12
@@ -153,6 +163,7 @@ rm 12
 
 ```bash
 cd 13_z3
+aocd 13 2024 > 13.in
 z3 13.z3
 pytest 2024/day13.py
 ```
@@ -161,6 +172,7 @@ pytest 2024/day13.py
 
 ```bash
 cd 14_julia
+aocd 14 2024 > 14.in
 julia 14.jl
 ```
 
@@ -168,6 +180,7 @@ julia 14.jl
 
 ```bash
 cd 15_scala
+aocd 15 2024 > 15.in
 scalac Main.scala
 scala Main
 rm Main.class Main$.class Solver.class
@@ -177,6 +190,7 @@ rm Main.class Main$.class Solver.class
 
 ```bash
 cd 16_vlang
+aocd 16 2024 > 16.in
 v run 16.v
 ```
 
@@ -193,6 +207,7 @@ rm 17
 
 ```bash
 cd 18_ruby
+aocd 18 2024 > 18.in
 ruby 18.rb
 ```
 
@@ -200,7 +215,16 @@ ruby 18.rb
 
 ```bash
 cd 19_rust
+aocd 19 2024 > 19.in
 rustc 19.rs
 ./19    
 rm 19
+```
+
+### Day 20 - JavaScript
+
+```bash
+cd 20_js
+aocd 20 2024 > 20.in
+node 20.js
 ```
