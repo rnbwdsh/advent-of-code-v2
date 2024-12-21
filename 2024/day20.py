@@ -1,5 +1,3 @@
-import json
-
 import networkx
 import numba
 import numpy as np
@@ -25,10 +23,11 @@ DIR = ((1, 0), (0, -1), (-1, 0), (0, 1))
 ###############""", 44, 285)
 def test_20(data: np.array, level):
     max_allowed = 20 if level else 2
-    min_shortcut = (50 if level else 1) if len(data) == 15 else 100
+    shortcut_1 = (50 if level else 1)
+    min_shortcut =  shortcut_1 if len(data) == 15 else 100
 
     g = networkx.DiGraph()
-    for x, y in zip(*np.where(data != '#')):
+    for x, y in zip(*np.nonzero(data != '#')):
         x, y = int(x), int(y)
         if data[x, y] == 'S':
             e_pos = (x, y)
@@ -38,8 +37,6 @@ def test_20(data: np.array, level):
                 g.add_edge((x, y), (nx, ny))
     dist2node = sorted(networkx.shortest_path_length(g, target=e_pos).items(), key=lambda x: x[1])
     dist2node = [k for k, v in dist2node]
-    with open('dist2node.json', 'w') as f:
-        json.dump(dist2node, f)
     return find_shortcuts(dist2node, max_allowed, min_shortcut)
 
 
