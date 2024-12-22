@@ -10,13 +10,13 @@ def mix_prune(secret: int, value: int) -> int:
     return secret ^ value % 16777216
 
 @numba.njit
-def process(secret: int) -> int:
+def generate_next(secret: int) -> int:
     secret = mix_prune(secret, secret * 64)
     secret = mix_prune(secret, secret // 32)
     return mix_prune(secret, secret * 2048)
 
 @numba.njit(nopython=True, parallel=True)
-def simulate_inner(buy_indicator: np.array, diffs: np.array, sequences: np.array) -> int:
+def simulate(buy_indicator: np.array, diffs: np.array, sequences: np.array) -> int:
     total = 0
     for seq_id in numba.prange(len(sequences)):
         diff = diffs[seq_id]
@@ -34,7 +34,7 @@ def to_base20(n: np.array) -> np.array:
 def gen_sequence(secret: int) -> np.array:
     curr_seq = [secret]
     for _ in range(2000):
-        secret = process(secret)
+        secret = generate_next(secret)
         curr_seq.append(secret)
     return np.array(curr_seq[1:])
 
@@ -57,15 +57,15 @@ def test_21(data: List[str], level):
     # type conversions + continuous array gives another 2x speedup due to memory layout
     seq = np.array(seqs, dtype=np.int8)
     diff = np.array(diffs, dtype=np.int32)
-    return max([simulate_inner(buy_indicator, diff, seq) for buy_indicator in np.array(buy_indicators, dtype=np.int32)])
+    return max([simulate(buy_indicator, diff, seq) for buy_indicator in np.array(buy_indicators, dtype=np.int32)])
 
 def test_numbers_123():
     curr = 123
     exp = [15887950, 16495136, 527345, 704524, 1553684, 12683156, 11100544, 12249484, 7753432, 5908254]
     for i, number in enumerate(exp):
-        curr = process(curr)
+        curr = generate_next(curr)
         assert curr == number
 
 def test_simulate():
     seqs = np.array([3, 0, 6, 5, 4, 4, 6, 4, 4, 2])
-    assert simulate_inner(to_base20([-1, -1, 0, 2]), [(gen_diff(seqs))], [seqs[1:]]) == 6
+    assert simulate(to_base20([-1, -1, 0, 2]), [(gen_diff(seqs))], [seqs[1:]]) == 6
