@@ -44,7 +44,7 @@ def gen_diff(seq):
     return np.array([to_base20(diff[i:i + 4]) for i in range(len(diff) - 3)])
 
 @pytest.mark.data("1\n10\n100\n2024", 37327623, 23)
-def test_21(data: List[str], level):
+def test_22(data: List[str], level):
     if level and len(data) == 4:
         data = [1, 2, 3, 2024]
     if not level:
