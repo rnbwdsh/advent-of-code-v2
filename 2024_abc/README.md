@@ -2,7 +2,7 @@
 
 ## Solutions
 
-|               Day | Puzzle                                                         | Lang    | Year | Solution                                                 | Skill Rating | Like Rating | Comment                                                                              |
+|               Day | Puzzle                                                         | Lang    | Year | Solution                                                 | Skill&nbsp;Rating | Like&nbsp;Rating | Comment                                                                              |
 |-----------------------:|:---------------------------------------------------------------|:--------|:-----|:---------------------------------------------------------|:-------------|:------------|--------------------------------------------------------------------------------------|
 |  [1](../2024/day01.py) | [Historian Hysteria](https://adventofcode.com/2024/day/1)      | Asm     | 1949 | [01_a.asm](01_asm/01_a.asm), [01_b.asm](01_asm/01_b.asm) | ⭐⭐⚫⚫⚫        | 🖤🖤🖤🖤🖤  | Very tedious to do number read/write                                                 |
 |  [2](../2024/day02.py) | [Red-Nosed Reports](https://adventofcode.com/2024/day/2)       | Bash    | 1989 | [02_a.sh](02_bash/02_a.sh)                               | ⭐⭐⭐⚫⚫        | ❤️❤️🖤🖤🖤  | Slow + bad if syntax                                                                 |
