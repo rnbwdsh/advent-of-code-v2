@@ -12,5 +12,5 @@ def test_23(data: List[str], level):
         clique_size = {len(c): c for c in nx.find_cliques(g)}
         return ",".join(sorted(clique_size[max(clique_size.keys())]))
     else:
-        c3t = [c for c in nx.enumerate_all_cliques(g) if len(c) == 3 and any(cc.startswith("t") for cc in c)]
-        return len(c3t)
+        return len([c for c in nx.enumerate_all_cliques(g)
+                    if len(c) == 3 and any(cc.startswith("t") for cc in c)])
