@@ -60,7 +60,7 @@ mut end := null
 // go over the input and build the graph
 lines := os.read_file('16.in')!.split('\n')
 for i in 0 .. lines.len {
-	for j in 0 .. lines[0].len {
+	for j in 0 .. lines[i].len {
 		if lines[i][j] != `#` {
 			for k in 0 .. 4 {
 				add_node_to_graph(mut graph, Node{i, j, k}, lines)
