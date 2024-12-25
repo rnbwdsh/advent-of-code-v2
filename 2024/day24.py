@@ -13,23 +13,20 @@ def test_24(data: List[List[str]], level):
     if level:
         best_swaps = []
         for _ in range(4):
-            best_swap = None
+            best_a = best_b = None
             best_score = 0
             for a, b in list(itertools.combinations(tasks.keys(), 2)):
-                tn = simulate_rep(init, swap_tasks(tasks, a, b))
+                tc = tasks.copy()
+                tc[a], tc[b] = tc[b], tc[a]
+                tn = simulate_rep(init, tc)
                 if tn is not None and best_score < tn < TIMEOUT:
                     best_score = tn
-                    best_swap = (a, b)
-            best_swaps.extend(best_swap)
-            tasks = swap_tasks(tasks, *best_swap)
+                    best_a, best_b = a, b
+            best_swaps.extend([best_a, best_b])
+            tasks[best_a], tasks[best_b] = tasks[best_b], tasks[best_a]
         return ",".join(sorted(best_swaps))
     else:
         return simulate(init, tasks)
-
-def swap_tasks(tasks, a, b):
-    tc = tasks.copy()
-    tc[a], tc[b] = tc[b], tc[a]
-    return tc
 
 def simulate(init, tasks):
     while tasks:
