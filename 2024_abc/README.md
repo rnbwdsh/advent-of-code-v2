@@ -6,11 +6,11 @@
 |-----------------------:|:---------------------------------------------------------------|:--------|:-----|:---------------------------------------------------------|:------------------------|:-----------------------|--------------------------------------------------------------------------------------|
 |  [1](../2024/day01.py) | [Historian Hysteria](https://adventofcode.com/2024/day/1)      | Asm     | 1949 | [01_a.asm](01_asm/01_a.asm), [01_b.asm](01_asm/01_b.asm) | ⭐⭐⚫⚫⚫                   | 🖤🖤🖤🖤🖤             | Very tedious to do number read/write                                                 |
 |  [2](../2024/day02.py) | [Red-Nosed Reports](https://adventofcode.com/2024/day/2)       | Bash    | 1989 | [02_a.sh](02_bash/02_a.sh)                               | ⭐⭐⭐⚫⚫                   | ❤️❤️🖤🖤🖤             | Slow + bad if syntax                                                                 |
-|  [3](../2024/day03.py) | [Mull It Over](https://adventofcode.com/2024/day/3)            | AWK     | 1977 | [03_a.awk](03_awk/03_a.awk), [03_b.awk](03_awk/03_b.awk) | ⭐⚫⚫⚫⚫                   | ❤️❤️❤️❤️❤️             | Feels like a modern language for 1977                                                |
+|  [3](../2024/day03.py) | [Mull It Over](https://adventofcode.com/2024/day/3)            | AWK     | 1977 | [03_a.awk](03_awk/03_a.awk), [03_b.awk](03_awk/03_b.awk) | ⭐⭐⚫⚫⚫                   | ❤️❤️❤️❤️❤️             | Feels like a modern language for 1977                                                |
 |  [4](../2024/day04.py) | [Ceres Search](https://adventofcode.com/2024/day/4)            | MATLAB  | 1984 | [04_a.m](04_matlab/04_a.m), [04_b.m](04_matlab/04_b.m)   | ⭐⚫⚫⚫⚫                   | 🖤🖤🖤🖤🖤             | Slow + offset 1 arrays + cursed array indexing / string to matrix                    |
 |  [5](../2024/day05.py) | [Print Queue](https://adventofcode.com/2024/day/5)             | Java    | 1995 | [05.java](05_java/05.java)                               | ⭐⭐⭐⭐⭐                   | ❤️❤️❤️❤️🖤             | Nearly as verbose as C, but with data structures and safety                          |
 |  [6](../2024/day06.py) | [Guard Gallivant](https://adventofcode.com/2024/day/6)         | C       | 1972 | [06.c](06_c/06.c)                                        | ⭐⭐⭐⭐⚫                   | ❤️❤️❤️❤️🖤             | Fast, but easy to make mistakes                                                      |
-|  [7](../2024/day07.py) | [Bridge Repair](https://adventofcode.com/2024/day/7)           | Lisp    | 1958 | [07.lisp](07_lisp/07.lisp)                               | ⭐⭐⚫⚫⚫                   | ❤️🖤🖤🖤🖤             | asm < lisp < c, string split not in stdlib, hard to read/write                       |
+|  [7](../2024/day07.py) | [Bridge Repair](https://adventofcode.com/2024/day/7)           | Lisp    | 1958 | [07.lisp](07_lisp/07.lisp)                               | ⭐⚫⚫⚫⚫                   | ❤️🖤🖤🖤🖤             | asm < lisp < c, string split not in stdlib, hard to read/write                       |
 |  [8](../2024/day08.py) | [Resonant Collinearity](https://adventofcode.com/2024/day/8)   | SQLite  | 2000 | [08.sqlite.py](08_sqlite/2024/08sqlite.py)               | ⭐⭐⭐⭐⚫                   | ❤️❤️❤️❤️❤️             | Best SQL dialect for small stuff                                                     |
 |  [9](../2024/day09.py) | [Disk Fragmenter](https://adventofcode.com/2024/day/9)         | Go      | 2009 | [09.go](09_go/09.go)                                     | ⭐⭐⭐⚫⚫                   | ❤️❤️❤️❤️❤️             | Like C, but better                                                                   |
 | [10](../2024/day10.py) | [Hoof It](https://adventofcode.com/2024/day/10)                | Odin    | 2016 | [10.odin](10_odin/10.odin)                               | ⭐⚫⚫⚫⚫                   | ❤️❤️❤️🖤🖤             | C < Odin < Go, but nice stdlib                                                       |
@@ -26,20 +26,20 @@
 | [20](../2024/day20.py) | [Race Condition](https://adventofcode.com/2024/day/20)         | JS      | 2016 | [20.js](20_js/20.js)                                     | ⭐⭐⭐⭐⚫                   | ❤️❤️❤️❤️🖤             | Graet language, except for Map/Object keys can't be tuples                           |
 | [21](../2024/day21.py) | [Keypad Conundrum](https://adventofcode.com/2024/day/21)       | Kotlin  | 2011 | [21.kt](21_kotlin/21.kt)                                 | ⭐⭐⭐⭐⚫                   | ❤️❤️❤️❤️❤️             | Simply better java, for oop problems better than py                                  |
 | [22](../2024/day22.py) | [Monkey Market](https://adventofcode.com/2024/day/22)          | Nim     | 2008 | [day22.nim](22_nim/day22.nim)                            | ⭐⭐⭐⭐⭐                   | ❤️❤️❤️❤️❤️             | Great language, multiprocessing and slicing can be somewhat weird                    |
-| [23](../2024/day23.py) | [LAN Party](https://adventofcode.com/2024/day/23)              | C#      | 2000 | [Program.cs](23_cs/Program.cs)                           | ⭐⭐⚫⚫⚫                   | ❤️❤️❤️🖤🖤             | Microsoft C# with capitalized methods and weird brackets                             |
-| [24](../2024/day24.py) | [???](https://adventofcode.com/2024/day/24)                    | ???     | 2000 | [day24.???](24/day24.???)                                | ⭐⭐⭐⭐⭐                   | ❤️❤️❤️❤️❤️             |                                                                                      |
-| [25](../2024/day25.py) | [???](https://adventofcode.com/2024/day/25)                    | ???     | 2000 | [day25.???](25/day25.???)                                | ⭐⭐⭐⭐⚫                   | ❤️❤️❤️❤️🖤             |                                                                                      |
+| [23](../2024/day23.py) | [LAN Party](https://adventofcode.com/2024/day/23)              | C#      | 2000 | [Program.cs](23_cs/Program.cs)                           | ⭐⭐⚫⚫⚫                   | ❤️❤️❤️🖤🖤             | Microsoft Java with capitalized methods and weird brackets                           |
+| [24](../2024/day24.py) | [Crossed Wires](https://adventofcode.com/2024/day/24)          | Lua     | 1993 | [24.lua](24_lua/24.lua)                                  | ⭐⭐⭐⭐⭐                   | ❤️❤️❤️❤️❤️             | TODO                                                                                 |
+| [25](../2024/day25.py) | [Code Chronicle](https://adventofcode.com/2024/day/25)         | Perl5   | 1987 | [25.pl](25_perl/25.pl)                                   | ⚫⚫⚫⚫⚫                   | ❤️🖤🖤🖤🖤             | Horrible semantics without compile-time checks, stupid $/@ variable prefix, just bad |
 
 ## Ideas for languages that I haven't used yet
 
-| Category                      | Languages                     |
-|:------------------------------|:------------------------------|
-| Easy Languages                | Python                        |
-| New Languages                 | Mojo, Crystal, Zig, Haxe, Lua |
-| Classic Interpreter Languages | Perl, PHP                     |
-| Not Javas                     | Groovy                        |
-| Not C                         | D                             |
-| New Old Languages             | Delphi, COBOL                 |
+| Category                      | Languages                 |
+|:------------------------------|:--------------------------|
+| Easy Languages                | Python                    |
+| New Languages                 | Mojo, Crystal, Zig, Haxe, |
+| Classic Interpreter Languages | PHP                       |
+| Not Javas                     | Groovy                    |
+| Not C                         | D                         |
+| New Old Languages             | Delphi, COBOL             |
 
 ## License / Original
 
@@ -253,8 +253,24 @@ rm day22
 ### Day 23 - C#
 
 ```bash
-cd 23_c#
+cd 23_cs
 aocd 23 2024 > 23.in
 dotnet run --project day23.csproj
 rm -rf bin obj
+```
+
+### Day 24 - Lua
+
+```bash
+cd 24_lua
+aocd 24 2024 > 24.in
+lua 24.lua
+```
+
+### Day 25 - Perl5
+
+```bash
+cd 25_perl
+aocd 25 2024 > 25.in
+perl 25.pl
 ```
