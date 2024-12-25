@@ -1,6 +1,7 @@
 import itertools
 import operator
 from typing import List, Optional
+from multiprocessing import Pool
 
 import pytest
 
@@ -15,18 +16,25 @@ def test_24(data: List[List[str]], level):
         for _ in range(4):
             best_a = best_b = None
             best_score = 0
-            for a, b in list(itertools.combinations(tasks.keys(), 2)):
-                tc = tasks.copy()
-                tc[a], tc[b] = tc[b], tc[a]
-                tn = simulate_rep(init, tc)
+
+            with Pool() as pool:
+                results = pool.starmap(evaluate_swap, [(a, b, tasks, init) for a, b in itertools.combinations(tasks.keys(), 2)])
+
+            for a, b, tn in results:
                 if tn is not None and best_score < tn < TIMEOUT:
                     best_score = tn
                     best_a, best_b = a, b
+
             best_swaps.extend([best_a, best_b])
             tasks[best_a], tasks[best_b] = tasks[best_b], tasks[best_a]
         return ",".join(sorted(best_swaps))
     else:
         return simulate(init, tasks)
+
+def evaluate_swap(a, b, tasks, init):
+    tc = tasks.copy()
+    tc[a], tc[b] = tc[b], tc[a]
+    return a, b, simulate_rep(init, tc)
 
 def simulate(init, tasks):
     while tasks:
