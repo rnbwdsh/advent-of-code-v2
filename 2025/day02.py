@@ -14,4 +14,3 @@ def test_02(data: str, level):
                     level and any(check_num_str(si, i) for i in range(1, len(si)))):
                 sum_invalid += i
     return sum_invalid
-
