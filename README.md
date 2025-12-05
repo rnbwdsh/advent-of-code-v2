@@ -23,3 +23,13 @@ I'd also later like to use this as LLM training data
 
 * Install the dependencies mentioned in pyproject.toml
 * Run `pytest` in any year-directory. Use -n 32 for parallelism
+
+## Pytest magic
+
+The data is automatically fetched via python pytest fixtures, based on the folder and file name, i.e. for `2025/day_05` 
+it will fetch the respective data. Based on the annotated type of the 1st param, i.e. `def test_05(data: np.ndarray, level):`
+it will convert the data to a 
+* str or int
+* List[str] (default) or List[int] (separated by \n)
+* List[List[str]] or List[List[int]] (separated by \n\n and \n)
+* np.ndarray (2d array of strings)
