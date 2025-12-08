@@ -2,7 +2,6 @@ from typing import List
 
 import networkx as nx
 import pytest
-from numpy.ma.core import product
 
 from point import Point
 
@@ -40,5 +39,5 @@ def test_08(data: List[str], level):
             return n1[0] * n2[0]
 
     # product of the 3 largest component sizes
-    components = sorted(nx.connected_components(g), key=len, reverse=True)
-    return product([len(c) for c in components[:3]])
+    c = sorted(nx.connected_components(g), key=len, reverse=True)
+    return len(c[0]) * len(c[1]) * len(c[2])
