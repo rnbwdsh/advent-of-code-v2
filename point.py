@@ -33,6 +33,9 @@ class Point(tuple):
         assert isinstance(other, int)
         return Point(tuple(p // other for p in self))
 
+    def dist(self, other: "Point") -> int:
+        return sum((p - o)**2 for p, o in zip(self, other))
+
     def in_bounds(self, array: np.ndarray) -> bool:
         assert len(array.shape) == len(self)
         return all(0 <= idx < array.shape[dim] for dim, idx in enumerate(self))
