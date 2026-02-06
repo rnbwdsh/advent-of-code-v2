@@ -1,4 +1,4 @@
-pub fn solve(input: &str, part_b: bool) -> i32 {
+pub fn solve(input: &str, part_b: bool) -> String {
     let mut maze: Vec<i32> = input
         .split_whitespace()
         .map(|x| x.parse().expect("non-i32 compatbile value found"))
@@ -15,5 +15,5 @@ pub fn solve(input: &str, part_b: bool) -> i32 {
             None => break,
         }
     }
-    steps
+    steps.to_string()
 }

@@ -1,4 +1,4 @@
-pub fn solve(input: &str, part_b: bool) -> i32 {
+pub fn solve(input: &str, part_b: bool) -> String {
     let mut sum: i32 = 0;
     let chars: Vec<char> = input.chars().collect();
     let len = chars.len();
@@ -9,5 +9,5 @@ pub fn solve(input: &str, part_b: bool) -> i32 {
             sum += chars[i].to_digit(10).unwrap() as i32;
         }
     }
-    sum
+    sum.to_string()
 }

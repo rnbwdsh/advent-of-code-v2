@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-pub fn solve(input: &str, part_b: bool) -> i32 {
+pub fn solve(input: &str, part_b: bool) -> String {
     let mut memory: Vec<u32> = input
         .split_whitespace()
         .map(|x| x.parse().expect("non-u32 compatible value found"))
@@ -21,7 +21,7 @@ pub fn solve(input: &str, part_b: bool) -> i32 {
         }
 
         match seen.insert(memory.clone(), step) {
-            Some(s) => return if part_b {step - s} else {step},
+            Some(s) => return (if part_b {step - s} else {step}).to_string(),
             None => continue
         }
     }

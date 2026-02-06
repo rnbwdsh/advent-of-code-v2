@@ -5,7 +5,7 @@ struct Node {
     children: Vec<String>,
     weight: i32,
 }
-pub fn solve(input: &str, part_b: bool) -> i32 {
+pub fn solve(input: &str, part_b: bool) -> String {
     let mut tree: HashMap<String, Node> = HashMap::new();
 
     for line in input.lines() {
@@ -34,11 +34,10 @@ pub fn solve(input: &str, part_b: bool) -> i32 {
     let root = all_nodes.difference(&all_children).next().unwrap();
 
     if !part_b {
-        println!("{}", root);
-        return 0;
+        root.to_string()
+    } else {
+        check_tree(root, &tree).expect("no imbalance found").to_string()
     }
-
-    check_tree(root, &tree).expect("no imbalance found")
 }
 
 fn check_tree(curr: &String, tree: &HashMap<String, Node>) -> Option<i32> {

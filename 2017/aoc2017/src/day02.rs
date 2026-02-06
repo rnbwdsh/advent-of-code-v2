@@ -1,6 +1,6 @@
 use itertools::iproduct;
 
-pub fn solve(input: &str, part_b: bool) -> i32 {
+pub fn solve(input: &str, part_b: bool) -> String {
     let mut sum = 0;
     for line in input.split("\n") {
         let nums: Vec<i32> = line
@@ -13,7 +13,7 @@ pub fn solve(input: &str, part_b: bool) -> i32 {
             sum += check_nums(&nums)
         }
     }
-    sum
+    sum.to_string()
 }
 
 fn check_nums(nums: &[i32]) -> i32 {

@@ -5,7 +5,7 @@ use std::collections::HashMap;
 type Point = Complex<i32>;
 type Grid = HashMap<Point, i32>;
 
-pub fn solve(input: &str, part_b: bool) -> i32 {
+pub fn solve(input: &str, part_b: bool) -> String {
     let end = input.parse().expect("input was no int");
 
     let mut grid: Grid = HashMap::new();
@@ -33,10 +33,10 @@ pub fn solve(input: &str, part_b: bool) -> i32 {
         if part_b {
             let next = set_next_neighbor(&mut grid, pos);
             if next > end {
-                return next;
+                return next.to_string();
             }
         } else if step == end {
-            return pos.re.abs() + pos.im.abs();
+            return (pos.re.abs() + pos.im.abs()).to_string();
         }
     }
     unreachable!()
