@@ -1,0 +1,9 @@
+[package]
+name = "aoc2017"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+reqwest = { version = "0.13.1", features = ["blocking"] }
+num-complex = { version = "0.4.6", default-features = false }
+itertools = { version = "0.14.0", default-features = false, features = ["use_alloc"] }
