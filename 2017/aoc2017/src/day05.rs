@@ -1,7 +1,7 @@
 pub fn solve(input: &str, part_b: bool) -> i32 {
     let mut maze: Vec<i32> = input
         .split_whitespace()
-        .map(|x| x.parse().unwrap())
+        .map(|x| x.parse().expect("non-i32 compatbile value found"))
         .collect();
 
     let mut curr: usize = 0;
@@ -12,7 +12,7 @@ pub fn solve(input: &str, part_b: bool) -> i32 {
         steps += 1;
         match curr.checked_add_signed(jump as isize) {
             Some(new_pos) => curr = new_pos,
-            None => return steps, 
+            None => break,
         }
     }
     steps
