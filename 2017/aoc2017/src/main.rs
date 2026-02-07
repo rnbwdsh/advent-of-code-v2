@@ -1,3 +1,5 @@
+extern crate core;
+
 macro_rules! aoc_days {
     ($($day:ident),+) => {
         $(mod $day;)+
