@@ -6,19 +6,24 @@ pub struct Program {
     pub prog: Vec<(String, String, Option<String>)>,
     pub inbox: VecDeque<i64>,
     pub send_count: usize,
+    pub mul_count: usize,
     pub pc: usize,
 }
 
 impl Program {
     pub fn new(prog: Vec<(String, String, Option<String>)>, pid: i64) -> Self {
-        let mut reg: HashMap<String, i64> =
-            prog.iter().map(|(_, arg1, _)| (arg1.clone(), 0)).collect();
+        let mut reg: HashMap<String, i64> = prog
+            .iter()
+            .filter(|(_, arg1, _)| arg1 != "1")
+            .map(|(_, arg1, _)| (arg1.clone(), 0))
+            .collect();
         reg.insert("p".to_string(), pid);
         Program {
             reg,
             prog,
             inbox: VecDeque::new(),
             send_count: 0,
+            mul_count: 0,
             pc: 0,
         }
     }
@@ -35,26 +40,30 @@ impl Program {
         }
 
         let (cmd, arg1, arg2) = &self.prog[self.pc].clone();
-
         let val1 = self.get_value(&arg1);
         let val2 = arg2.as_ref().map(|s| self.get_value(s)).unwrap_or(0);
+        // println!("{:?}", self.reg);
 
         match cmd.as_str() {
             "snd" => {
                 outbox.push_back(val1);
                 self.send_count += 1;
             }
-            "set" | "add" | "mul" | "mod" => {
+            "set" | "add" | "mul" | "mod" | "sub" => {
                 self.reg.insert(
                     arg1.clone(),
                     match cmd.as_str() {
                         "set" => val2,
                         "add" => val1 + val2,
+                        "sub" => val1 - val2,
                         "mul" => val1 * val2,
                         "mod" => val1 % val2,
                         _ => unreachable!(),
                     },
                 );
+                if cmd == "mul" {
+                    self.mul_count += 1;
+                }
             }
             "rcv" => {
                 if let Some(val) = self.inbox.pop_front() {
@@ -69,7 +78,15 @@ impl Program {
                     return true;
                 }
             }
-            _ => {}
+            "jnz" => {
+                if val1 != 0 {
+                    self.pc = (self.pc as i64 + val2) as usize;
+                    return true;
+                }
+            }
+            _ => {
+                panic!("Unknown command: {}", cmd)
+            }
         }
         self.pc += 1;
         true
