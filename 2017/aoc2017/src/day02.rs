@@ -1,19 +1,19 @@
 use itertools::iproduct;
 
-pub fn solve(input: &str, part_b: bool) -> String {
+pub fn solve(input: &str, part_b: bool) -> Result<String, Box<dyn std::error::Error>> {
     let mut sum = 0;
     for line in input.split("\n") {
         let nums: Vec<i32> = line
             .split_whitespace()
-            .map(move |x| x.parse().unwrap())
-            .collect();
+            .map(|x| x.parse())
+            .collect::<Result<_, _>>()?;
         if !part_b {
-            sum += nums.iter().max().unwrap() - nums.iter().min().unwrap();
+            sum += nums.iter().max().ok_or("Empty line")? - nums.iter().min().ok_or("Empty line")?;
         } else {
             sum += check_nums(&nums)
         }
     }
-    sum.to_string()
+    Ok(sum.to_string())
 }
 
 fn check_nums(nums: &[i32]) -> i32 {

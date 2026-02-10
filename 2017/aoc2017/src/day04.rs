@@ -1,12 +1,12 @@
 use itertools::Itertools;
 use std::collections::HashSet;
 
-pub fn solve(input: &str, _part_b: bool) -> String {
-    input
+pub fn solve(input: &str, part_b: bool) -> Result<String, Box<dyn std::error::Error>> {
+    Ok(input
         .split("\n")
-        .map(|line| check_line(line, _part_b))
+        .map(|line| check_line(line, part_b))
         .sum::<i32>()
-        .to_string()
+        .to_string())
 }
 
 fn check_line(line: &str, part_b: bool) -> i32 {

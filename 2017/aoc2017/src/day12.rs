@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-pub fn solve(input: &str, part_b: bool) -> String {
+pub fn solve(input: &str, part_b: bool) -> Result<String, Box<dyn std::error::Error>> {
     let graph: HashMap<i32, Vec<i32>> = input
         .lines()
         .filter_map(|line| {
@@ -15,9 +15,9 @@ pub fn solve(input: &str, part_b: bool) -> String {
         .collect();
 
     if part_b {
-        count_groups(&graph).to_string()
+        Ok(count_groups(&graph).to_string())
     } else {
-        visit_group(&graph, 0).len().to_string()
+        Ok(visit_group(&graph, 0).len().to_string())
     }
 }
 

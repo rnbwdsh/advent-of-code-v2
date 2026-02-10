@@ -1,8 +1,8 @@
-pub fn solve(input: &str, part_b: bool) -> String {
+pub fn solve(input: &str, part_b: bool) -> Result<String, Box<dyn std::error::Error>> {
     let mut maze: Vec<i32> = input
         .split_whitespace()
-        .map(|x| x.parse().expect("non-i32 compatbile value found"))
-        .collect();
+        .map(|x| x.parse())
+        .collect::<Result<_, _>>()?;
 
     let mut curr: usize = 0;
     let mut steps: i32 = 0;
@@ -15,5 +15,5 @@ pub fn solve(input: &str, part_b: bool) -> String {
             None => break,
         }
     }
-    steps.to_string()
+    Ok(steps.to_string())
 }

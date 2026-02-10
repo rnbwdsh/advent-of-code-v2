@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-pub fn solve(input: &str, part_b: bool) -> String {
+pub fn solve(input: &str, part_b: bool) -> Result<String, Box<dyn std::error::Error>> {
     let mut registers = HashMap::new();
     let mut max_overall = 0;
 
@@ -11,7 +11,7 @@ pub fn solve(input: &str, part_b: bool) -> String {
         };
 
         let reg_r_val = *registers.get(cond_reg).unwrap_or(&0);
-        let cond_val: i32 = cond_val.parse().unwrap();
+        let cond_val: i32 = cond_val.parse()?;
 
         let comparison: fn(&i32, &i32) -> bool = match cond_op {
             "<" => i32::lt,
@@ -20,11 +20,11 @@ pub fn solve(input: &str, part_b: bool) -> String {
             ">=" => i32::ge,
             "==" => i32::eq,
             "!=" => i32::ne,
-            _ => unreachable!(),
+            _ => return Err("Unknown comparison operator".into()),
         };
 
         if comparison(&reg_r_val, &cond_val) {
-            let amount: i32 = amt.parse().unwrap();
+            let amount: i32 = amt.parse()?;
             let change = if op == "inc" { amount } else { -amount };
 
             let entry = registers.entry(reg.to_string()).or_insert(0);
@@ -33,9 +33,9 @@ pub fn solve(input: &str, part_b: bool) -> String {
         }
     }
 
-    (if part_b {
+    Ok((if part_b {
         max_overall
     } else {
         registers.into_values().max().unwrap_or(0)
-    }).to_string()
+    }).to_string())
 }

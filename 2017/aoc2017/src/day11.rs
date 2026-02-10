@@ -1,6 +1,6 @@
 use std::cmp::max;
 
-pub fn solve(input: &str, part_b: bool) -> String {
+pub fn solve(input: &str, part_b: bool) -> Result<String, Box<dyn std::error::Error>> {
     let (mut x, mut y, mut z): (i32, i32, i32) = (0, 0, 0);
     let mut max_dist = 0;
 
@@ -30,7 +30,7 @@ pub fn solve(input: &str, part_b: bool) -> String {
                 x += 1;
                 y -= 1;
             }
-            _ => panic!("Unknown direction"),
+            _ => return Err("Unknown direction".into()),
         }
 
         if part_b {
@@ -38,10 +38,10 @@ pub fn solve(input: &str, part_b: bool) -> String {
         }
     }
 
-    if part_b {
+    Ok((if part_b {
         max_dist
     } else {
         (x.abs() + y.abs() + z.abs()) / 2
-    }
-    .to_string()
+    })
+    .to_string())
 }

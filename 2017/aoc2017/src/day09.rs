@@ -1,4 +1,4 @@
-pub fn solve(input: &str, part_b: bool) -> String {
+pub fn solve(input: &str, part_b: bool) -> Result<String, Box<dyn std::error::Error>> {
     let mut chars = input.chars();
     let mut depth = 0;
     let mut score = 0;
@@ -19,5 +19,5 @@ pub fn solve(input: &str, part_b: bool) -> String {
             _ => {}
         }
     }
-    (if part_b { garbage_count } else { score }).to_string()
+    Ok((if part_b { garbage_count } else { score }).to_string())
 }

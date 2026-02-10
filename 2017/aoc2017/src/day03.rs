@@ -1,12 +1,12 @@
+use crate::common::Point;
 use itertools::iproduct;
 use num_complex::Complex;
 use std::collections::HashMap;
 
-type Point = Complex<i32>;
 type Grid = HashMap<Point, i32>;
 
-pub fn solve(input: &str, part_b: bool) -> String {
-    let end = input.parse().expect("input was no int");
+pub fn solve(input: &str, part_b: bool) -> Result<String, Box<dyn std::error::Error>> {
+    let end: i32 = input.parse()?;
 
     let mut grid: Grid = HashMap::new();
     if part_b {
@@ -33,10 +33,10 @@ pub fn solve(input: &str, part_b: bool) -> String {
         if part_b {
             let next = set_next_neighbor(&mut grid, pos);
             if next > end {
-                return next.to_string();
+                return Ok(next.to_string());
             }
         } else if step == end {
-            return (pos.re.abs() + pos.im.abs()).to_string();
+            return Ok((pos.re.abs() + pos.im.abs()).to_string());
         }
     }
     unreachable!()
