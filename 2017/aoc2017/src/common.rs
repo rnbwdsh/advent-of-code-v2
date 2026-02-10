@@ -4,14 +4,6 @@ use std::ops::{AddAssign, Index, IndexMut};
 // ==== Common Types ====
 pub type Point = Complex<isize>;
 
-// ==== Day 3, Day 11, Day 19 - Directions ====
-pub const DIRECTIONS: [Point; 4] = [
-    Point::new(1, 0),   // Right
-    Point::new(-1, 0),  // Left
-    Point::new(0, 1),   // Down
-    Point::new(0, -1),  // Up
-];
-
 // ==== Day 7 - Tree Node ====
 pub struct Node {
     pub children: Vec<String>,
@@ -39,34 +31,44 @@ impl Generator {
     }
 }
 
-// ==== Day 19 - Area Grid ====
-pub struct Area {
-    pub grid: Vec<Vec<char>>,
-    pub len: isize,
+// ==== Day 19 & Day 22 - Generic Area Grid with Offset Support ====
+pub struct AreaWithOffset<T> {
+    pub grid: Vec<Vec<T>>,
+    pub size: usize,
+    pub offset: isize,
 }
 
-impl Area {
-    pub fn new(grid: Vec<Vec<char>>) -> Self {
-        let len = grid.len() as isize;
-        Self { grid, len }
+impl<T: Clone> AreaWithOffset<T> {
+    pub fn new(size: usize, offset: isize, default: T) -> Self {
+        Self {
+            grid: vec![vec![default; size]; size],
+            size,
+            offset,
+        }
     }
 
     pub fn in_bounds(&self, pos: Point) -> bool {
-        pos.im >= 0 && pos.re >= 0 && pos.im < self.len && pos.re < self.len
+        let x = pos.re + self.offset;
+        let y = pos.im + self.offset;
+        x >= 0 && y >= 0 && x < self.size as isize && y < self.size as isize
     }
 }
 
-impl Index<Point> for Area {
-    type Output = char;
+impl<T> Index<Point> for AreaWithOffset<T> {
+    type Output = T;
 
     fn index(&self, pos: Point) -> &Self::Output {
-        &self.grid[pos.im as usize][pos.re as usize]
+        let x = (pos.re + self.offset) as usize;
+        let y = (pos.im + self.offset) as usize;
+        &self.grid[y][x]
     }
 }
 
-impl IndexMut<Point> for Area {
+impl<T> IndexMut<Point> for AreaWithOffset<T> {
     fn index_mut(&mut self, pos: Point) -> &mut Self::Output {
-        &mut self.grid[pos.im as usize][pos.re as usize]
+        let x = (pos.re + self.offset) as usize;
+        let y = (pos.im + self.offset) as usize;
+        &mut self.grid[y][x]
     }
 }
 
